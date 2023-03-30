@@ -12,6 +12,11 @@
                   <project path="$PROJECT_DIR$/licensee-asset-plugin" />
                 </projects>
               </build>
+              <build path="$PROJECT_DIR$/ui" name="ui">
+                <projects>
+                  <project path="$PROJECT_DIR$/ui" />
+                </projects>
+              </build>
             </builds>
           </compositeBuild>
         </compositeConfiguration>
@@ -24,6 +29,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/licensee-asset-plugin" />
+            <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
       </GradleProjectSettings>

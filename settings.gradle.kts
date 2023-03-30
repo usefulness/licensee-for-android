@@ -36,6 +36,7 @@ dependencyResolutionManagement {
 rootProject.name = "Gross"
 
 includeBuild("licensee-asset-plugin")
+includeBuild("ui")
 include(":app")
 
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
