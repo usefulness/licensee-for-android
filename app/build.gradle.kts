@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.app.cash.licensee)
+    id("se.premex.gross.licensee-assets")
+}
+
+licensee {
+    allow("Apache-2.0")
 }
 
 android {
@@ -51,7 +57,7 @@ android {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
         vendor.set(JvmVendorSpec.AZUL)
     }
 }

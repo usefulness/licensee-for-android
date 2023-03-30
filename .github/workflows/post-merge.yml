@@ -21,6 +21,9 @@ jobs:
       - name: Run verifications
         run: ./gradlew check --scan
 
+      - name: Run validate on plugin
+        run: ./gradlew :licensee-asset-plugin:validatePlugin --scan
+
       - name: Upload reports
         uses: actions/upload-artifact@v3
         if: failure()
