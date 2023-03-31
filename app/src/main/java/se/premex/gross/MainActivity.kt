@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import se.premex.gross.oss.OssView
+import se.premex.gross.ui.OssView
 import se.premex.gross.ui.theme.GrossTheme
 
 class MainActivity : ComponentActivity() {

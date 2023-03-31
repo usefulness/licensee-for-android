@@ -1,4 +1,4 @@
-package se.premex.gross.oss
+package se.premex.gross.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,17 +14,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import se.premex.gross.oss.R
 
 @Composable
-fun ErrorView(errorString: String) =
-    ErrorView {
+fun ErrorView(errorString: String, errorMessage: String, modifier: Modifier = Modifier) =
+    ErrorView(modifier = modifier) {
         Text(text = errorString)
+        Text(text = errorMessage)
     }
 
 @Composable
-fun ErrorView(content: @Composable () -> Unit) {
+fun ErrorView(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

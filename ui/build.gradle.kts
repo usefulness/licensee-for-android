@@ -69,7 +69,8 @@ java {
 }
 
 dependencies {
-    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.ktx)
+    api("se.premex.gross:core:1.0")
+    implementation(libs.com.squareup.okio)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.ui)

@@ -17,6 +17,11 @@
                   <project path="$PROJECT_DIR$/ui" />
                 </projects>
               </build>
+              <build path="$PROJECT_DIR$/core" name="core">
+                <projects>
+                  <project path="$PROJECT_DIR$/core" />
+                </projects>
+              </build>
             </builds>
           </compositeBuild>
         </compositeConfiguration>
@@ -28,6 +33,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/licensee-asset-plugin" />
             <option value="$PROJECT_DIR$/ui" />
           </set>

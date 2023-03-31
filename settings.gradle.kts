@@ -37,6 +37,7 @@ rootProject.name = "Gross"
 
 includeBuild("licensee-asset-plugin")
 includeBuild("ui")
+includeBuild("core")
 include(":app")
 
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")

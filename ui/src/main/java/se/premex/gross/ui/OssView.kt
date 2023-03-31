@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package se.premex.gross.oss
+package se.premex.gross.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -34,34 +34,30 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import okio.IOException
+import se.premex.gross.core.Artifact
+import se.premex.gross.oss.R
 
 @Composable
 fun OssView() {
-
-    val licenseParser = remember { LicenseParser() }
-
     val assetManager = LocalContext.current.assets
+
+    val licenseParser = remember { AssetLicenseParser(assetManager) }
 
     val uiState = remember { mutableStateOf(OssViewState()) }
 
     LaunchedEffect(key1 = assetManager) {
-        val viewData: List<ViewData> = licenseParser.readFromAssets(assetManager).map {
-            val licenses = it.spdxLicenses.orEmpty()
-                .map { spdx -> License(spdx.name, spdx.url) } +
-                    it.unknownLicenses.orEmpty()
-                        .map { unknown -> License(unknown.name, unknown.url) }
-
-            val nameOrPackage = it.name ?: (it.groupId + ":" + it.groupId)
-            ViewData(
-                nameOrPackage,
-                licenses
-            )
-        }.sortedBy { it.title }
-        uiState.value = OssViewState(loadingState = State.Success(data = viewData))
+        try {
+            uiState.value =
+                OssViewState(viewState = State.Success(data = licenseParser.readFromAssets()))
+        } catch (ioException: IOException) {
+            uiState.value =
+                OssViewState(viewState = State.Failed(errorMessage = ioException.localizedMessage ?: ""))
+        }
     }
 
-    when (val state = uiState.value.loadingState) {
-        is State.Failed -> ErrorView(stringResource(id = R.string.error))
+    when (val state = uiState.value.viewState) {
+        is State.Failed -> ErrorView(stringResource(id = R.string.error), state.errorMessage)
         is State.Loading -> LoadingView(stringResource(id = R.string.loading))
         is State.Success -> OssView(state.data)
     }
@@ -69,7 +65,18 @@ fun OssView() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OssView(artifacts: List<ViewData>) {
+fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
+    val viewData = artifacts.map { artifact ->
+        val licenses =
+            artifact.spdxLicenses.spdxToLicenses() + artifact.unknownLicenses.unknownToLicenses()
+
+        val nameOrPackage =
+            artifact.name ?: ("${artifact.groupId}:${artifact.artifactId}:${artifact.version}")
+
+        ViewArtifact(nameOrPackage, licenses)
+    }.sortedBy { it.title }
+
+
     val licenses: SnapshotStateList<License> = remember { mutableStateListOf() }
     var alertTitle by remember { mutableStateOf("") }
     LicenseSelector(alertTitle, licenses) {
@@ -77,7 +84,7 @@ fun OssView(artifacts: List<ViewData>) {
     }
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -93,13 +100,12 @@ fun OssView(artifacts: List<ViewData>) {
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 40.dp),
                     text = stringResource(id = R.string.oss_description)
-
                 )
             }
         }
 
-        val grouped: Map<String, List<ViewData>> =
-            artifacts.groupBy { it.title[0].uppercaseChar().toString() }
+        val grouped: Map<String, List<ViewArtifact>> =
+            viewData.groupBy { it.title[0].uppercaseChar().toString() }
         grouped.forEach { (title, list) ->
             stickyHeader {
                 CharacterHeader(title)
