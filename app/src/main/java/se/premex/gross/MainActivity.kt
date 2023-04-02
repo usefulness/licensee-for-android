@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting("Android")
-                        OssView()
+                        ProgrammaticOssView()
                     }
                 }
             }

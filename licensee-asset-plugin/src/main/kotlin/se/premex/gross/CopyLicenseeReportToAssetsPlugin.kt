@@ -8,15 +8,45 @@ import org.gradle.api.reporting.ReportingExtension
 import org.gradle.kotlin.dsl.register
 import java.util.Locale
 
+private enum class AndroidPlugin {
+    Application,
+    Library,
+    DynamicFeature,
+}
 
 class CopyLicenseeReportToAssetsPlugin : Plugin<Project> {
     override fun apply(project: Project) {
 
-        val androidComponentsExtension =
-            project.extensions.getByName("androidComponents") as ApplicationAndroidComponentsExtension
+        val extension = project.extensions.create("gross", GrossExtension::class.java)
+        extension.enableKotlinCodeGeneration.convention(true)
+        extension.enableAndroidAssetGeneration.convention(false)
+        extension.androidAssetFileName.convention("artifacts.json")
 
         val reportingExtension: ReportingExtension =
             project.extensions.getByType(ReportingExtension::class.java)
+
+        val androidPlugin = if (project.plugins.hasPlugin("com.android.application")) {
+            AndroidPlugin.Application
+        } else if (project.plugins.hasPlugin("com.android.library")) {
+            AndroidPlugin.Library
+        } else if (project.plugins.hasPlugin("com.android.dynamic-feature")) {
+            AndroidPlugin.DynamicFeature
+        } else {
+            null
+        }
+
+        if (androidPlugin != null) {
+            configureAndroidPlugin(project, extension, reportingExtension)
+        }
+    }
+
+    private fun configureAndroidPlugin(
+        project: Project,
+        extension: GrossExtension,
+        reportingExtension: ReportingExtension
+    ) {
+        val androidComponentsExtension =
+            project.extensions.getByName("androidComponents") as ApplicationAndroidComponentsExtension
 
         androidComponentsExtension.onVariants { variant ->
             val capitalizedVariantName = variant.name.replaceFirstChar {
@@ -27,28 +57,33 @@ class CopyLicenseeReportToAssetsPlugin : Plugin<Project> {
                 }
             }
 
-            val copyArtifactsTask =
-                project.tasks.register<AssetCopyTask>("copy${capitalizedVariantName}LicenseeReportToAssets") {
-                    inputFile.set(reportingExtension.file("licensee/${variant.name}/artifacts.json"))
-                }
-
-            variant.sources.assets!!.addGeneratedSourceDirectory(
-                copyArtifactsTask,
-                AssetCopyTask::outputDirectory
-            )
-
-            val codeGenerationTask = project.tasks.register<CodeGenerationTask>("${capitalizedVariantName}LicenseeReportToKotlin") {
-                inputFile.set(reportingExtension.file("licensee/${variant.name}/artifacts.json"))
+            val artifactsFile = reportingExtension.file("licensee/${variant.name}/artifacts.json")
+            if (extension.enableAndroidAssetGeneration.get()) {
+                val copyArtifactsTask =
+                    project.tasks.register<AssetCopyTask>("copy${capitalizedVariantName}LicenseeReportToAssets") {
+                        inputFile.set(artifactsFile)
+                        targetFileName.set(extension.androidAssetFileName.get())
+                    }
+                variant.sources.assets!!.addGeneratedSourceDirectory(
+                    copyArtifactsTask,
+                    AssetCopyTask::outputDirectory
+                )
+                copyArtifactsTask.dependsOn("licensee${capitalizedVariantName}")
             }
 
-            variant.sources.java!!.addGeneratedSourceDirectory(
-                codeGenerationTask,
-                CodeGenerationTask::outputDirectory
-            )
+            if (extension.enableKotlinCodeGeneration.get()) {
+                val codeGenerationTask =
+                    project.tasks.register<CodeGenerationTask>("${capitalizedVariantName}LicenseeReportToKotlin") {
+                        inputFile.set(artifactsFile)
+                    }
 
-            codeGenerationTask.dependsOn("licensee${capitalizedVariantName}")
+                variant.sources.java!!.addGeneratedSourceDirectory(
+                    codeGenerationTask,
+                    CodeGenerationTask::outputDirectory
+                )
 
-            copyArtifactsTask.dependsOn("licensee${capitalizedVariantName}")
+                codeGenerationTask.dependsOn("licensee${capitalizedVariantName}")
+            }
         }
     }
 }

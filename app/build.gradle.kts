@@ -9,6 +9,10 @@ licensee {
     allow("Apache-2.0")
 }
 
+gross {
+    enableKotlinCodeGeneration.set(true)
+    enableAndroidAssetGeneration.set(true)
+}
 android {
     namespace = "se.premex.gross"
     compileSdk = 33

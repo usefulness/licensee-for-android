@@ -150,10 +150,8 @@ abstract class CodeGenerationTask : DefaultTask() {
 
         val spdxNullableListType =
             LIST.parameterizedBy(ClassName(packageName, spdxLicensesTypeSpec.name!!))
-                .copy(nullable = true)
         val unknownLicensesNullableListType =
             LIST.parameterizedBy(ClassName(packageName, unknownLicensesTypeSpec.name!!))
-                .copy(nullable = true)
 
         val artifactTypeSpec = ArtifactTypeSpec(
             spdxNullableListType,

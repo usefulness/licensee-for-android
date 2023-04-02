@@ -38,31 +38,6 @@ import okio.IOException
 import se.premex.gross.core.Artifact
 import se.premex.gross.oss.R
 
-@Composable
-fun OssView() {
-    val assetManager = LocalContext.current.assets
-
-    val licenseParser = remember { AssetLicenseParser(assetManager) }
-
-    val uiState = remember { mutableStateOf(OssViewState()) }
-
-    LaunchedEffect(key1 = assetManager) {
-        try {
-            uiState.value =
-                OssViewState(viewState = State.Success(data = licenseParser.readFromAssets()))
-        } catch (ioException: IOException) {
-            uiState.value =
-                OssViewState(viewState = State.Failed(errorMessage = ioException.localizedMessage ?: ""))
-        }
-    }
-
-    when (val state = uiState.value.viewState) {
-        is State.Failed -> ErrorView(stringResource(id = R.string.error), state.errorMessage)
-        is State.Loading -> LoadingView(stringResource(id = R.string.loading))
-        is State.Success -> OssView(state.data)
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
