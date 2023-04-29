@@ -3,10 +3,8 @@ package se.premex.gross
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.MemberName
-import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
@@ -33,21 +31,12 @@ abstract class CodeGenerationTask : DefaultTask() {
     fun action() {
         val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
 
-        val file = FileSpec.builder(packageName, "Artifact")
+        FileSpec.builder(packageName, "Artifact")
             .addType(licenseeTypesGenerator.spdxLicensesTypeSpec)
             .addType(licenseeTypesGenerator.scmTypeSpec)
             .addType(licenseeTypesGenerator.unknownLicensesTypeSpec)
             .addType(licenseeTypesGenerator.artifactTypeSpec)
-            .build()
-        file.writeTo(outputDirectory.asFile.get())
-
-        val mutableListOf = MemberName("kotlin.collections", "mutableListOf")
-        val mutableList = ClassName("kotlin.collections", "MutableList")
-            .parameterizedBy(ClassName(packageName, licenseeTypesGenerator.artifactTypeSpec.name!!))
-
-        val funSpec = FunSpec.builder("allArtifactsFun")
-            .returns(licenseeTypesGenerator.artifactListType)
-            .addStatement("val list: %T = %M()", mutableList, mutableListOf)
+            .build().writeTo(outputDirectory.asFile.get())
 
         val artifacts = LicenseParser().decode(inputFile.asFile.get().source().buffer())
 
@@ -57,41 +46,31 @@ abstract class CodeGenerationTask : DefaultTask() {
             scmTypeSpec = licenseeTypesGenerator.scmTypeSpec,
             unknownLicensesTypeSpec = licenseeTypesGenerator.unknownLicensesTypeSpec
         )
-        artifacts.forEach {
-            val codeBlockBuilder = CodeBlock.builder()
-            codeBlockBuilder.addStatement(
-                """list.%N(""", ClassName("kotlin.collections", "MutableList")
-                    .member("add")
-            )
-            codeBlockBuilder.add(artifactCodeGenerator.artifactCodeBlock(artifact = it))
-            codeBlockBuilder.addStatement("""|)""".trimMargin())
-            funSpec.addCode(codeBlockBuilder.build())
-        }
 
-        val build = funSpec.addStatement("return list")
-            .build()
+        val artifactList = CodeBlock.builder().apply {
+            addStatement("%M(", MemberName("kotlin.collections", "listOf"))
+            artifacts.forEach { artifact ->
+                add(artifactCodeGenerator.artifactCodeBlock(artifact))
+                addStatement(",")
+            }
+            addStatement(")")
+        }.build()
 
         val grossType = TypeSpec.objectBuilder("Gross")
-            .build()
-
-        val allFiles = FileSpec.builder(packageName, "Artifacts")
-            .addType(grossType)
             .addProperty(
-                PropertySpec
-                    .builder(
-                        "allArtifacts", LIST.parameterizedBy(
-                            ClassName(
-                                packageName,
-                                licenseeTypesGenerator.artifactTypeSpec.name!!
-                            )
+                PropertySpec.builder(
+                    "artifacts", LIST.parameterizedBy(
+                        ClassName(
+                            packageName,
+                            licenseeTypesGenerator.artifactTypeSpec.name!!
                         )
                     )
-                    .initializer("mutableListOf()")
-                    .build()
+                ).initializer(artifactList).build()
             )
-            .addFunction(build)
             .build()
 
-        allFiles.writeTo(outputDirectory.asFile.get())
+        FileSpec.builder(packageName, "Gross")
+            .addType(grossType)
+            .build().writeTo(outputDirectory.asFile.get())
     }
 }

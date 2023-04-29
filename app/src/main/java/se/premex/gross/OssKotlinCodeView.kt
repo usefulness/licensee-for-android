@@ -9,7 +9,7 @@ import se.premex.gross.ui.OssView
 
 @Composable
 fun ProgrammaticOssView() {
-    OssView(allArtifactsFun().map { artifact ->
+    OssView(Gross.artifacts.map { artifact ->
         Artifact(
             name = artifact.name,
             groupId = artifact.groupId,
