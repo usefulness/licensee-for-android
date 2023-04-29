@@ -3,13 +3,11 @@ package se.premex.gross
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import okio.buffer
 import okio.source
@@ -31,149 +29,29 @@ abstract class CodeGenerationTask : DefaultTask() {
     @get:InputFile
     abstract val inputFile: RegularFileProperty
 
-    private fun SpdxLicensesTypeSpec(): TypeSpec =
-        TypeSpec.classBuilder("SpdxLicenses")
-            .addModifiers(KModifier.DATA)
-            .primaryConstructor(
-                FunSpec.constructorBuilder()
-                    .addParameter("identifier", String::class)
-                    .addParameter("name", String::class)
-                    .addParameter("url", String::class)
-                    .build()
-            ).addProperty(
-                PropertySpec.builder("identifier", String::class)
-                    .initializer("identifier")
-                    .build()
-            )
-            .addProperty(
-                PropertySpec.builder("name", String::class)
-                    .initializer("name")
-                    .build()
-            )
-            .addProperty(
-                PropertySpec.builder("url", String::class)
-                    .initializer("url")
-                    .build()
-            )
-            .build()
-
-    private fun ScmTypeSpec() = TypeSpec.classBuilder("Scm")
-        .addModifiers(KModifier.DATA)
-        .primaryConstructor(
-            FunSpec.constructorBuilder()
-                .addParameter("url", String::class)
-                .build()
-        ).addProperty(
-            PropertySpec.builder("url", String::class)
-                .initializer("url")
-                .build()
-        )
-        .build()
-
-    private fun UnknownLicensesTypeSpec() = TypeSpec.classBuilder("UnknownLicenses")
-        .addModifiers(KModifier.DATA)
-        .primaryConstructor(
-            FunSpec.constructorBuilder()
-                .addParameter("name", String::class)
-                .addParameter("url", String::class)
-                .build()
-        ).addProperty(
-            PropertySpec.builder("name", String::class)
-                .initializer("name")
-                .build()
-        )
-        .addProperty(
-            PropertySpec.builder("url", String::class)
-                .initializer("url")
-                .build()
-        )
-        .build()
-
-    private fun ArtifactTypeSpec(
-        spdxType: TypeName,
-        scmType: TypeName,
-        unknownLicensesType: TypeName
-    ) = TypeSpec.classBuilder("Artifact")
-        .addModifiers(KModifier.DATA)
-        .primaryConstructor(
-            FunSpec.constructorBuilder()
-                .addParameter("groupId", String::class)
-                .addParameter("artifactId", String::class)
-                .addParameter("version", String::class)
-                .addParameter("name", String::class)
-                .addParameter("spdxLicenses", spdxType)
-                .addParameter("scm", scmType)
-                .addParameter("unknownLicenses", unknownLicensesType)
-                .build()
-        ).addProperty(
-            PropertySpec.builder("groupId", String::class)
-                .initializer("groupId")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("name", String::class)
-                .initializer("name")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("artifactId", String::class)
-                .initializer("artifactId")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("version", String::class)
-                .initializer("version")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("name", String::class)
-                .initializer("name")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("spdxLicenses", spdxType)
-                .initializer("spdxLicenses")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("scm", scmType)
-                .initializer("scm")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("unknownLicenses", unknownLicensesType)
-                .initializer("unknownLicenses")
-                .build()
-        )
-        .build()
-
-
     @TaskAction
     fun action() {
-
-        val spdxLicensesTypeSpec = SpdxLicensesTypeSpec()
-        val scmTypeSpec = ScmTypeSpec()
-        val unknownLicensesTypeSpec = UnknownLicensesTypeSpec()
-
-        val spdxNullableListType =
-            LIST.parameterizedBy(ClassName(packageName, spdxLicensesTypeSpec.name!!))
-        val unknownLicensesNullableListType =
-            LIST.parameterizedBy(ClassName(packageName, unknownLicensesTypeSpec.name!!))
-
-        val artifactTypeSpec = ArtifactTypeSpec(
-            spdxNullableListType,
-            ClassName(packageName, scmTypeSpec.name!!).copy(nullable = true),
-            unknownLicensesNullableListType
-        )
-        val artifactListType =
-            LIST.parameterizedBy(ClassName(packageName, artifactTypeSpec.name!!))
+        val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
 
         val file = FileSpec.builder(packageName, "Artifact")
-            .addType(spdxLicensesTypeSpec)
-            .addType(scmTypeSpec)
-            .addType(unknownLicensesTypeSpec)
-            .addType(artifactTypeSpec)
+            .addType(licenseeTypesGenerator.spdxLicensesTypeSpec)
+            .addType(licenseeTypesGenerator.scmTypeSpec)
+            .addType(licenseeTypesGenerator.unknownLicensesTypeSpec)
+            .addType(licenseeTypesGenerator.artifactTypeSpec)
             .build()
-
         file.writeTo(outputDirectory.asFile.get())
 
         val mutableListOf = MemberName("kotlin.collections", "mutableListOf")
         val mutableList = ClassName("kotlin.collections", "MutableList")
-            .parameterizedBy(ClassName(packageName, artifactTypeSpec.name!!))
+            .parameterizedBy(ClassName(packageName, licenseeTypesGenerator.artifactTypeSpec.name!!))
 
+        val artifactListType =
+            LIST.parameterizedBy(
+                ClassName(
+                    packageName,
+                    licenseeTypesGenerator.artifactTypeSpec.name!!
+                )
+            )
 
         val funSpec = FunSpec.builder("allArtifactsFun")
             .returns(artifactListType)
@@ -185,9 +63,9 @@ abstract class CodeGenerationTask : DefaultTask() {
             addFunSpec(
                 it,
                 funSpec,
-                spdxLicensesTypeSpec,
-                scmTypeSpec,
-                unknownLicensesTypeSpec
+                licenseeTypesGenerator.spdxLicensesTypeSpec,
+                licenseeTypesGenerator.scmTypeSpec,
+                licenseeTypesGenerator.unknownLicensesTypeSpec
             )
         }
 
@@ -195,7 +73,11 @@ abstract class CodeGenerationTask : DefaultTask() {
         val build = funSpec.addStatement("return list")
             .build()
 
+        val grossType = TypeSpec.objectBuilder("Gross")
+            .build()
+
         val allFiles = FileSpec.builder(packageName, "Artifacts")
+            .addType(grossType)
             .addProperty(
                 PropertySpec
                     .builder("allArtifacts", artifactListType)
@@ -263,7 +145,5 @@ abstract class CodeGenerationTask : DefaultTask() {
             appendLine("""|))""".trimMargin())
         }
         funSpec.addStatement(statement, *newArguments.toTypedArray())
-
-
     }
 }
