@@ -7,6 +7,7 @@ import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 
 class LicenseeTypesGenerator(private val packageName: String) {
 
@@ -83,7 +84,7 @@ class LicenseeTypesGenerator(private val packageName: String) {
                 .addParameter("groupId", String::class)
                 .addParameter("artifactId", String::class)
                 .addParameter("version", String::class)
-                .addParameter("name", String::class)
+                .addParameter("name", String::class.asTypeName().copy(nullable = true))
                 .addParameter("spdxLicenses", spdxListType)
                 .addParameter("scm", scmType)
                 .addParameter("unknownLicenses", unknownLicensesType)
@@ -91,10 +92,6 @@ class LicenseeTypesGenerator(private val packageName: String) {
         ).addProperty(
             PropertySpec.builder("groupId", String::class)
                 .initializer("groupId")
-                .build()
-        ).addProperty(
-            PropertySpec.builder("name", String::class)
-                .initializer("name")
                 .build()
         ).addProperty(
             PropertySpec.builder("artifactId", String::class)
@@ -105,7 +102,10 @@ class LicenseeTypesGenerator(private val packageName: String) {
                 .initializer("version")
                 .build()
         ).addProperty(
-            PropertySpec.builder("name", String::class)
+            PropertySpec.builder(
+                "name",
+                String::class.asTypeName().copy(nullable = true)
+            )
                 .initializer("name")
                 .build()
         ).addProperty(
@@ -113,7 +113,7 @@ class LicenseeTypesGenerator(private val packageName: String) {
                 .initializer("spdxLicenses")
                 .build()
         ).addProperty(
-            PropertySpec.builder("scm", scmType)
+            PropertySpec.builder("scm", scmType.copy(nullable = true))
                 .initializer("scm")
                 .build()
         ).addProperty(
@@ -122,4 +122,11 @@ class LicenseeTypesGenerator(private val packageName: String) {
                 .build()
         )
         .build()
+
+    val artifactListType = LIST.parameterizedBy(
+        ClassName(
+            packageName,
+            artifactTypeSpec.name!!
+        )
+    )
 }

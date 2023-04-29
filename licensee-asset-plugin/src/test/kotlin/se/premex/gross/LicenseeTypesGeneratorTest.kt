@@ -54,7 +54,7 @@ class LicenseeTypesGeneratorTest {
   public val groupId: kotlin.String,
   public val artifactId: kotlin.String,
   public val version: kotlin.String,
-  public val name: kotlin.String,
+  public val name: kotlin.String?,
   public val spdxLicenses: kotlin.collections.List<se.premex.gross.SpdxLicenses>,
   public val scm: se.premex.gross.Scm?,
   public val unknownLicenses: kotlin.collections.List<se.premex.gross.UnknownLicenses>,
