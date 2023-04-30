@@ -1,4 +1,4 @@
-rootProject.name = "licensee-asset-plugin"
+rootProject.name = "gross-plugin"
 
 pluginManagement {
     repositories {

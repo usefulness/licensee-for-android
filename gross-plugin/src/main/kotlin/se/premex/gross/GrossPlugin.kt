@@ -14,7 +14,7 @@ private enum class AndroidPlugin {
     DynamicFeature,
 }
 
-class CopyLicenseeReportToAssetsPlugin : Plugin<Project> {
+class GrossPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val extension = project.extensions.create("gross", GrossExtension::class.java)
         extension.enableKotlinCodeGeneration.convention(true)

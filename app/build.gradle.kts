@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.app.cash.licensee)
-    id("se.premex.gross.licensee-assets")
+    id("se.premex.gross")
 }
 
 licensee {

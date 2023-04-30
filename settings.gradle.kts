@@ -35,7 +35,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Gross"
 
-includeBuild("licensee-asset-plugin")
+includeBuild("gross-plugin")
 includeBuild("ui")
 includeBuild("core")
 include(":app")

@@ -7,9 +7,9 @@
         <compositeConfiguration>
           <compositeBuild compositeDefinitionSource="SCRIPT">
             <builds>
-              <build path="$PROJECT_DIR$/licensee-asset-plugin" name="licensee-asset-plugin">
+              <build path="$PROJECT_DIR$/gross-plugin" name="gross-plugin">
                 <projects>
-                  <project path="$PROJECT_DIR$/licensee-asset-plugin" />
+                  <project path="$PROJECT_DIR$/gross-plugin" />
                 </projects>
               </build>
               <build path="$PROJECT_DIR$/ui" name="ui">
@@ -34,7 +34,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/licensee-asset-plugin" />
+            <option value="$PROJECT_DIR$/gross-plugin" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>

@@ -11,17 +11,22 @@ import okio.source
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import se.premex.gross.core.LicenseParser
 
+@CacheableTask
 abstract class CodeGenerationTask : DefaultTask() {
     private val packageName = "se.premex.gross"
 
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
 
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFile
     abstract val inputFile: RegularFileProperty
 
