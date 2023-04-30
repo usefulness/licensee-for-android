@@ -19,7 +19,6 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -28,18 +27,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import okio.IOException
 import se.premex.gross.core.Artifact
 import se.premex.gross.oss.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionNaming")
 fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
     val viewData = artifacts.map { artifact ->
         val licenses =
@@ -50,7 +48,6 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
 
         ViewArtifact(nameOrPackage, licenses)
     }.sortedBy { it.title }
-
 
     val licenses: SnapshotStateList<License> = remember { mutableStateListOf() }
     var alertTitle by remember { mutableStateOf("") }
@@ -101,6 +98,7 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
 }
 
 @Composable
+@Suppress("FunctionNaming")
 fun CharacterHeader(initial: String) {
     Text(
         modifier = Modifier.padding(
@@ -115,6 +113,7 @@ fun CharacterHeader(initial: String) {
 
 @Preview(showSystemUi = true)
 @Composable
+@Suppress("FunctionNaming")
 fun LicenseSelectorPreview() {
     Column(Modifier.fillMaxSize()) {
         LicenseSelector("Licenses", listOf(License("aaa", "http://google.se"))) {
@@ -124,6 +123,7 @@ fun LicenseSelectorPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionNaming")
 fun LicenseSelector(title: String, licenses: List<License>, close: () -> Unit) {
     val uriHandler = LocalUriHandler.current
 

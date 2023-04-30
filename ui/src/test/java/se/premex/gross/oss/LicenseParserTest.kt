@@ -1,9 +1,14 @@
 package se.premex.gross.oss
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.ExperimentalSerializationApi
+import okio.buffer
+import okio.source
+import se.premex.gross.core.LicenseParser
 import kotlin.test.Test
 
-private const val artifactsSmall = """[
+private const val ARTIFACTS_SMALL = """[
     {
         "groupId": "androidx.activity",
         "artifactId": "activity",
@@ -22,7 +27,7 @@ private const val artifactsSmall = """[
     }
 ]"""
 
-private const val artifactsMedium = """[
+private const val ARTIFACTS_MEDIUM = """[
     {
         "groupId": "androidx.activity",
         "artifactId": "activity",
@@ -75,15 +80,18 @@ private const val artifactsMedium = """[
 
 class LicenseParserTest {
     @Test
+    @ExperimentalCoroutinesApi
+    @ExperimentalSerializationApi
     fun testSmall() = runTest {
-        val licenseParser = LicenseParser()
-        licenseParser.decodeString(artifactsSmall)
-        licenseParser.decodeString(artifactsMedium)
+        val licenseParser = object : LicenseParser {}
+        licenseParser.decode(ARTIFACTS_SMALL.byteInputStream().source().buffer())
     }
+
     @Test
+    @ExperimentalCoroutinesApi
+    @ExperimentalSerializationApi
     fun testMedium() = runTest {
-        val licenseParser = LicenseParser()
-        licenseParser.decodeString(artifactsSmall)
-        licenseParser.decodeString(artifactsMedium)
+        val licenseParser = object : LicenseParser {}
+        licenseParser.decode(ARTIFACTS_MEDIUM.byteInputStream().source().buffer())
     }
 }

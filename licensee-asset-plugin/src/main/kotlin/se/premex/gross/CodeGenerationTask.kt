@@ -1,13 +1,11 @@
 package se.premex.gross
 
-import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.MemberName
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import kotlinx.serialization.ExperimentalSerializationApi
 import okio.buffer
 import okio.source
 import org.gradle.api.DefaultTask
@@ -28,6 +26,7 @@ abstract class CodeGenerationTask : DefaultTask() {
     abstract val inputFile: RegularFileProperty
 
     @TaskAction
+    @ExperimentalSerializationApi
     fun action() {
         val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
 
@@ -58,14 +57,8 @@ abstract class CodeGenerationTask : DefaultTask() {
 
         val grossType = TypeSpec.objectBuilder("Gross")
             .addProperty(
-                PropertySpec.builder(
-                    "artifacts", LIST.parameterizedBy(
-                        ClassName(
-                            packageName,
-                            licenseeTypesGenerator.artifactTypeSpec.name!!
-                        )
-                    )
-                ).initializer(artifactList).build()
+                PropertySpec.builder("artifacts", licenseeTypesGenerator.artifactListType)
+                    .initializer(artifactList).build()
             )
             .build()
 

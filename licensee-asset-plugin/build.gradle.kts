@@ -1,6 +1,7 @@
 plugins {
     `kotlin-dsl`
     kotlin("plugin.serialization") version "1.8.10"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
 }
 
 java {
@@ -9,6 +10,12 @@ java {
         vendor.set(JvmVendorSpec.AZUL)
     }
 }
+
+detekt {
+    autoCorrect = true
+    buildUponDefaultConfig = true
+}
+
 buildscript {
     dependencies {
         classpath(libs.com.android.tools.build.gradle)
@@ -28,6 +35,8 @@ dependencies {
 
     // https://github.com/gradle/gradle/issues/15383
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 
     testImplementation(kotlin("test"))
 }

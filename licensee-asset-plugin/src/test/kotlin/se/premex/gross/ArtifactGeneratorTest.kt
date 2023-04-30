@@ -48,7 +48,8 @@ class ArtifactGeneratorTest {
     ),
     )
 
-""", artifactCodeBlock.toString()
+""",
+            artifactCodeBlock.toString()
         )
     }
 
@@ -78,7 +79,8 @@ class ArtifactGeneratorTest {
     ),
     )
 
-""", artifactCodeBlock.toString()
+""",
+            artifactCodeBlock.toString()
         )
     }
 
@@ -118,7 +120,8 @@ class ArtifactGeneratorTest {
     ),
     )
 
-""", artifactCodeBlock.toString()
+""",
+            artifactCodeBlock.toString()
         )
     }
 }

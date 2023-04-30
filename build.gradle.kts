@@ -6,6 +6,12 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android) apply false
     alias(libs.plugins.com.github.ben.manes.versions)
     alias(libs.plugins.nl.littlerobots.version.catalog.update)
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+}
+
+detekt {
+    autoCorrect = true
+    buildUponDefaultConfig = true
 }
 
 fun isNonStable(version: String): Boolean {
@@ -26,4 +32,8 @@ tasks.withType<DependencyUpdatesTask> {
             }
         }
     }
+}
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 }

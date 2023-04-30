@@ -21,4 +21,3 @@ data class License(
     val title: String,
     val url: String,
 )
-

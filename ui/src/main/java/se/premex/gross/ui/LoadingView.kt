@@ -10,15 +10,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
+@Suppress("FunctionNaming")
 fun LoadingView(loadingTitle: String, modifier: Modifier = Modifier) =
     LoadingView(modifier) {
         Text(text = loadingTitle)
     }
 
 @Composable
+@Suppress("FunctionNaming")
 fun LoadingView(modifier: Modifier = Modifier, content: @Composable () -> Unit = {}) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -29,4 +32,11 @@ fun LoadingView(modifier: Modifier = Modifier, content: @Composable () -> Unit =
         Spacer(Modifier.height(32.dp))
         content()
     }
+}
+
+@Preview
+@Composable
+@Suppress("FunctionNaming")
+fun PreviewLoadingView() {
+    LoadingView("LoadingTitle")
 }

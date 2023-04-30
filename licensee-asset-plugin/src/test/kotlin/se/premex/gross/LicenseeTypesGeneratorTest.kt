@@ -6,6 +6,7 @@ import kotlin.test.assertEquals
 class LicenseeTypesGeneratorTest {
 
     private val packageName = "se.premex.gross"
+
     @Test
     fun testSpdxLicenses() {
         val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
@@ -30,7 +31,6 @@ class LicenseeTypesGeneratorTest {
 """
 
         assertEquals(spdxDefinition, licenseeTypesGenerator.scmTypeSpec.toString())
-
     }
 
     @Test

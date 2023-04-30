@@ -3,7 +3,6 @@ package se.premex.gross
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.MemberName
-import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.TypeSpec
 import se.premex.gross.core.Artifact
 
@@ -13,7 +12,9 @@ class ArtifactCodeGenerator(
     private val scmTypeSpec: TypeSpec,
     private val unknownLicensesTypeSpec: TypeSpec
 ) {
-    internal fun artifactCodeBlock(
+
+    @Suppress("SpreadOperator")
+    fun artifactCodeBlock(
         artifact: Artifact,
     ): CodeBlock {
         val arguments = mutableListOf<Any>()
@@ -23,7 +24,8 @@ class ArtifactCodeGenerator(
                 """Artifact(
                     |groupId = %S,
                     |artifactId = %S,
-                    |version = %S,""".trimMargin()
+                    |version = %S,
+                """.trimMargin()
             )
             arguments.add(artifact.groupId)
             arguments.add(artifact.artifactId)
@@ -63,7 +65,6 @@ class ArtifactCodeGenerator(
                 arguments.add(it.url)
             }
             appendLine("""),""")
-
 
             appendLine("""|)""".trimMargin())
         }

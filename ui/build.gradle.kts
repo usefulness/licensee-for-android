@@ -7,7 +7,12 @@ plugins {
     alias(libs.plugins.com.github.ben.manes.versions)
     alias(libs.plugins.nl.littlerobots.version.catalog.update)
     kotlin("plugin.serialization") version "1.8.10"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+}
 
+detekt {
+    autoCorrect = true
+    buildUponDefaultConfig = true
 }
 
 fun isNonStable(version: String): Boolean {
@@ -91,4 +96,6 @@ dependencies {
     implementation(libs.androidx.core.core.ktx)
     testImplementation(libs.org.jetbrains.kotlin.kotlin.test.junit)
     testImplementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 }

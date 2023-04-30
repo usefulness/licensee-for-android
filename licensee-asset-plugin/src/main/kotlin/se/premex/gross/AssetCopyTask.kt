@@ -26,7 +26,8 @@ abstract class AssetCopyTask : DefaultTask() {
             target = File(
                 outputDirectory.get().asFile,
                 targetFileName.get()
-            ), overwrite = true
+            ),
+            overwrite = true
         )
     }
 }

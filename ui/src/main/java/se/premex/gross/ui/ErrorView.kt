@@ -13,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import se.premex.gross.oss.R
 
 @Composable
+@Suppress("FunctionNaming")
 fun ErrorView(errorString: String, errorMessage: String, modifier: Modifier = Modifier) =
     ErrorView(modifier = modifier) {
         Text(text = errorString)
@@ -24,6 +26,7 @@ fun ErrorView(errorString: String, errorMessage: String, modifier: Modifier = Mo
     }
 
 @Composable
+@Suppress("FunctionNaming")
 fun ErrorView(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -39,4 +42,11 @@ fun ErrorView(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
         Spacer(Modifier.height(16.dp))
         content()
     }
+}
+
+@Preview
+@Composable
+@Suppress("FunctionNaming")
+fun ErrorViewPreview() {
+    ErrorView("ErrorString", "ErrorMessage")
 }
