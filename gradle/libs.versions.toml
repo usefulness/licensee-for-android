@@ -51,7 +51,7 @@ ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 
 [plugins]
-app-cash-licensee = "app.cash.licensee:1.6.0"
+app-cash-licensee = "app.cash.licensee:1.7.0"
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
 com-android-library = { id = "com.android.library", version.ref = "com-android-application" }
 com-github-ben-manes-versions = "com.github.ben-manes.versions:0.46.0"
