@@ -59,9 +59,8 @@ group = "se.premex"
 
 gradlePlugin {
     plugins {
-        create("se.premex.gross") {
+        create("gross") {
             id = "se.premex.gross"
-            group = "se.premex.gross"
             implementationClass = "se.premex.gross.GrossPlugin"
         }
     }
@@ -74,7 +73,7 @@ pluginBundle {
     tags = mutableListOf("tooling", "open source", "premex")
 
     (plugins) {
-        "se.premex.gross" {
+        "gross" {
             displayName = "Generates a list of open source licenses you depend on"
             description =
                 """Generates a list of open source licenses you depend on. Depends on the output of licensee from cashapp - https://github.com/cashapp/licensee.

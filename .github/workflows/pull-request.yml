@@ -37,7 +37,7 @@ jobs:
         run: ./gradlew :core:check --scan
 
       - name: Run validate on plugin
-        run: ./gradlew :gross-plugin:check --scan
+        run: ./gradlew :gross-plugin:check :gross-plugin:validatePlugins --scan
 
       - name: Upload reports
         uses: actions/upload-artifact@v3
