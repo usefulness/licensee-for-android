@@ -1,6 +1,6 @@
 [versions]
 activity-compose = "1.7.0"
-androidx-compose-compiler = "1.4.4"
+androidx-compose-compiler = "1.4.7"
 androidx-core = "1.9.0"
 androidx-test-ext-junit = "1.1.5"
 com-android-application = "8.0.0"
@@ -10,7 +10,7 @@ core-ktx = "1.9.0"
 espresso-core = "3.5.1"
 junit = "4.13.2"
 lifecycle-runtime-ktx = "2.6.1"
-org-jetbrains-kotlin-android = "1.8.10"
+org-jetbrains-kotlin-android = "1.8.21"
 
 [libraries]
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
