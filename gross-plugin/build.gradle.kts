@@ -33,7 +33,7 @@ buildscript {
 dependencies {
     implementation(libs.com.android.tools.build.gradle)
     implementation(libs.org.jetbrains.kotlin.kotlin.gradle.plugin)
-    implementation("com.squareup:kotlinpoet:1.12.0") {
+    implementation("com.squareup:kotlinpoet:1.13.2") {
         exclude(module = "kotlin-reflect")
     }
 
