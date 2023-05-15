@@ -39,8 +39,8 @@ org-jetbrains-kotlinx-kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-c
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 material3 = { module = "androidx.compose.material3:material3" }
 org-jetbrains-kotlin-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin-android" }
-org-jetbrains-kotlinx-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
-org-jetbrains-kotlinx-kotlinx-serialization-json-jvm = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.5.0"
+org-jetbrains-kotlinx-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+org-jetbrains-kotlinx-kotlinx-serialization-json-jvm = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.5.1"
 org-jetbrains-kotlinx-kotlinx-serialization-json-okio = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio:1.5.1"
 org-jetbrains-kotlin-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin-android" }
 ui = { module = "androidx.compose.ui:ui" }
