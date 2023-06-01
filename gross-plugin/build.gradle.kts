@@ -5,7 +5,7 @@ plugins {
     id("com.gradle.plugin-publish") version "0.21.0"
     id("maven-publish")
     id("com.gladed.androidgitversion") version "0.4.14"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.0"
 }
 
 java {
