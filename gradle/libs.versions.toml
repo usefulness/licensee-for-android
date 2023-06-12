@@ -54,6 +54,6 @@ ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 app-cash-licensee = "app.cash.licensee:1.7.0"
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
 com-android-library = { id = "com.android.library", version.ref = "com-android-application" }
-com-github-ben-manes-versions = "com.github.ben-manes.versions:0.46.0"
+com-github-ben-manes-versions = "com.github.ben-manes.versions:0.47.0"
 nl-littlerobots-version-catalog-update = "nl.littlerobots.version-catalog-update:0.8.0"
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
