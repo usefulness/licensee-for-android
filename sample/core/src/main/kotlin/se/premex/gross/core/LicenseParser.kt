@@ -7,5 +7,5 @@ import okio.BufferedSource
 
 interface LicenseParser {
     @ExperimentalSerializationApi
-    fun decode(source: BufferedSource): List<Artifact> = Json.decodeFromBufferedSource(source)
+    fun decode(source: BufferedSource) = Json.decodeFromBufferedSource<List<Artifact>>(source)
 }

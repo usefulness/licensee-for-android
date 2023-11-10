@@ -14,10 +14,10 @@ junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", vers
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "maven-assertj" }
 agp-gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "google-agp" }
 kotlin-gradle-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "maven-kotlin" }
-com-squareup-okio = "com.squareup.okio:okio:3.6.0"
 com-squareup-kotlinpoet = "com.squareup:kotlinpoet:1.14.2"
-org-jetbrains-kotlinx-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
-org-jetbrains-kotlinx-kotlinx-serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "maven-kotlin-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
+kotlinx-serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "maven-kotlin-serialization" }
+com-squareup-okio = "com.squareup.okio:okio:3.6.0"
 
 [plugins]
 starter-config = { id = "com.starter.config", version.ref = "gradle-starter" }
@@ -25,5 +25,5 @@ starter-versioning = { id = "com.starter.versioning", version.ref = "gradle-star
 starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }
 starter-library-android = { id = "com.starter.library.android", version.ref = "gradle-starter" }
 gradle-pluginpublish = { id = "com.gradle.plugin-publish", version.ref = "gradle-pluginpublish" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin-serialization" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin" }
 osacky-doctor = { id = "com.osacky.doctor", version.ref = "gradle-doctor" }
