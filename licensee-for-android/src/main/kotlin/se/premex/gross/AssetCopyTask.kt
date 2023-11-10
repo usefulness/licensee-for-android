@@ -11,27 +11,23 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
-import java.io.File
 
 @CacheableTask
-abstract class AssetCopyTask : DefaultTask() {
+public abstract class AssetCopyTask : DefaultTask() {
     @get:OutputDirectory
-    abstract val outputDirectory: DirectoryProperty
+    public abstract val outputDirectory: DirectoryProperty
 
     @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFile
-    abstract val inputFile: RegularFileProperty
+    public abstract val inputFile: RegularFileProperty
 
     @get:Input
-    abstract val targetFileName: Property<String>
+    public abstract val targetFileName: Property<String>
 
     @TaskAction
-    fun action() {
+    public fun action() {
         inputFile.get().asFile.copyTo(
-            target = File(
-                outputDirectory.get().asFile,
-                targetFileName.get(),
-            ),
+            target = outputDirectory.get().asFile.resolve(targetFileName.get()),
             overwrite = true,
         )
     }

@@ -40,8 +40,7 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
         val licenses =
             artifact.spdxLicenses.spdxToLicenses() + artifact.unknownLicenses.unknownToLicenses()
 
-        val nameOrPackage =
-            artifact.name ?: ("${artifact.groupId}:${artifact.artifactId}:${artifact.version}")
+        val nameOrPackage = ("${artifact.name}\n(${artifact.groupId}:${artifact.artifactId}:${artifact.version})".trim())
 
         ViewArtifact(nameOrPackage, licenses)
     }.sortedBy { it.title }

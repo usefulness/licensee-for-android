@@ -10,13 +10,14 @@ import se.premex.gross.core.Scm
 import se.premex.gross.core.SpdxLicenses
 import se.premex.gross.core.UnknownLicenses
 import se.premex.gross.ui.OssView
+import io.github.usefulness.licensee.Licensee
 
 @Composable
 fun ProgrammaticOssView() {
     Column {
         Text(text = stringResource(id = R.string.programmatic))
         OssView(
-            Gross.artifacts.map { artifact ->
+            Licensee.artifacts.map { artifact ->
                 Artifact(
                     name = artifact.name,
                     groupId = artifact.groupId,

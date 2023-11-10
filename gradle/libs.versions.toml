@@ -7,6 +7,7 @@ maven-kotlin-serialization = "1.6.0"
 maven-kotlin = "1.9.20"
 maven-junit = "5.10.1"
 maven-assertj = "3.24.2"
+maven-binarycompatiblity = "0.13.2"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
@@ -26,4 +27,5 @@ starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gra
 starter-library-android = { id = "com.starter.library.android", version.ref = "gradle-starter" }
 gradle-pluginpublish = { id = "com.gradle.plugin-publish", version.ref = "gradle-pluginpublish" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin" }
+kotlinx-binarycompatibility = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "maven-binarycompatiblity" }
 osacky-doctor = { id = "com.osacky.doctor", version.ref = "gradle-doctor" }

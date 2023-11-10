@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="oss_title">Open source licenses</string>
-    <string name="error">Error</string>
-    <string name="loading">Loading</string>
-    <string name="oss_description">This application is built with the following open source projects.</string>
-    <string name="close">Close</string>
-</resources>

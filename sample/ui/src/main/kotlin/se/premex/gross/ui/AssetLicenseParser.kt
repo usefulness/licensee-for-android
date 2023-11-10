@@ -14,7 +14,7 @@ import se.premex.gross.core.UnknownLicenses
 class AssetLicenseParser(private val assetManager: AssetManager) : LicenseParser {
     @ExperimentalSerializationApi
     suspend fun readFromAssets(): List<Artifact> = withContext(Dispatchers.IO) {
-        val source = assetManager.open("artifacts.json").source().buffer()
+        val source = assetManager.open("licensee_artifacts.json").source().buffer()
         decode(source)
     }
 }

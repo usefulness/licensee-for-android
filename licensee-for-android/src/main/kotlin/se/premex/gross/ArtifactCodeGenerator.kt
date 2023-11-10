@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeSpec
 import se.premex.gross.core.Artifact
 
-class ArtifactCodeGenerator(
+internal class ArtifactCodeGenerator(
     private val packageName: String,
     private val spdxLicensesTypeSpec: TypeSpec,
     private val scmTypeSpec: TypeSpec,

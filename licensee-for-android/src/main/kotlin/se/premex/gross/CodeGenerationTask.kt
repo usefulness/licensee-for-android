@@ -22,19 +22,19 @@ import org.gradle.api.tasks.TaskAction
 import se.premex.gross.core.Artifact
 
 @CacheableTask
-abstract class CodeGenerationTask : DefaultTask() {
-    private val packageName = "se.premex.gross"
+public abstract class CodeGenerationTask : DefaultTask() {
+    private val packageName = "io.github.usefulness.licensee"
 
     @get:OutputDirectory
-    abstract val outputDirectory: DirectoryProperty
+    public abstract val outputDirectory: DirectoryProperty
 
     @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFile
-    abstract val inputFile: RegularFileProperty
+    public abstract val inputFile: RegularFileProperty
 
     @TaskAction
     @ExperimentalSerializationApi
-    fun action() {
+    public fun action() {
         val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
 
         FileSpec.builder(packageName, "Artifact")
@@ -62,14 +62,14 @@ abstract class CodeGenerationTask : DefaultTask() {
             addStatement(")")
         }.build()
 
-        val grossType = TypeSpec.objectBuilder("Gross")
+        val grossType = TypeSpec.objectBuilder("Licensee")
             .addProperty(
                 PropertySpec.builder("artifacts", licenseeTypesGenerator.artifactListType)
                     .initializer(artifactList).build(),
             )
             .build()
 
-        FileSpec.builder(packageName, "Gross")
+        FileSpec.builder(packageName, "Licensee")
             .addType(grossType)
             .build().writeTo(outputDirectory.asFile.get())
     }

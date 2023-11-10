@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.ProjectExtensionsKt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,6 +5,7 @@ plugins {
     alias(libs.plugins.gradle.pluginpublish)
     alias(libs.plugins.starter.library.kotlin)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlinx.binarycompatibility)
 }
 
 dependencies {
@@ -23,6 +23,12 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.assertj.core)
 }
+
+
+kotlin {
+    explicitApi()
+}
+
 
 tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {

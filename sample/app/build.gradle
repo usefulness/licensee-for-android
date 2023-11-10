@@ -8,9 +8,9 @@ licensee {
     allow("Apache-2.0")
 }
 
-gross {
-    enableKotlinCodeGeneration.set(true)
-    enableAndroidAssetGeneration.set(true)
+licenseeForAndroid {
+    enableKotlinCodeGeneration = true
+    enableAndroidAssetGeneration = true
 }
 android {
     namespace "io.githhub.usefulness.licensee.android.app"

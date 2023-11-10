@@ -9,7 +9,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
 
-class LicenseeTypesGenerator(private val packageName: String) {
+internal class LicenseeTypesGenerator(packageName: String) {
 
     val spdxLicensesTypeSpec: TypeSpec =
         TypeSpec.classBuilder("SpdxLicenses")
