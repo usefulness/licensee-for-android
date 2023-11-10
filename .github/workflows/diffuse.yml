@@ -1,0 +1,82 @@
+name: Diffuse
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+      - trunk
+      - develop
+      - maine
+      - mane
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  run-diffuse:
+    env:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Write Gradle build properties to `~/.gradle/gradle.properties`
+        run: |
+          mkdir -p ~/.gradle
+          printf "org.gradle.jvmargs=-Xmx3G -XX:+UseParallelGC\n" >> ~/.gradle/gradle.properties
+          printf "org.gradle.vfs.watch=false\n" >> ~/.gradle/gradle.properties
+        shell: bash
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - uses: actions/cache@v3
+        name: Download base
+        with:
+          path: diffuse-base-file
+          key: diffuse-${{ github.event.pull_request.base.sha }}-always-cache-miss
+          restore-keys: diffuse-${{ github.event.pull_request.base.sha }}
+
+      - uses: gradle/gradle-build-action@v2
+
+      - run: ./gradlew assemble -PskipJarVersion
+
+      - id: diffuse
+        uses: usefulness/diffuse-action@master
+        with:
+          old-file-path: diffuse-base-file
+          new-file-path: licensee-for-android/build/libs/licensee-for-android.jar
+
+      - uses: peter-evans/find-comment@v2
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: Diffuse output
+
+      - uses: peter-evans/create-or-update-comment@v3
+        if: ${{ steps.diffuse.outputs.diff-gh-comment != null || steps.find_comment.outputs.comment-id != null }}
+        with:
+          body: |
+            Diffuse output:
+
+            ${{ steps.diffuse.outputs.diff-gh-comment }}
+          edit-mode: replace
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: diffuse-output
+          path: ${{ steps.diffuse.outputs.diff-file }}
