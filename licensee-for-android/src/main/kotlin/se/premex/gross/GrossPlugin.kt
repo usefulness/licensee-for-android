@@ -1,7 +1,6 @@
 package se.premex.gross
 
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.reporting.ReportingExtension
@@ -53,7 +52,7 @@ public class GrossPlugin : Plugin<Project> {
                     copyArtifactsTask,
                     AssetCopyTask::outputDirectory,
                 )
-                copyArtifactsTask.dependsOn("licensee$capitalizedVariantName")
+                copyArtifactsTask.configure { it.dependsOn("licensee$capitalizedVariantName") }
             }
 
             if (extension.enableKotlinCodeGeneration.get()) {
@@ -67,7 +66,7 @@ public class GrossPlugin : Plugin<Project> {
                     CodeGenerationTask::outputDirectory,
                 )
 
-                codeGenerationTask.dependsOn("licensee$capitalizedVariantName")
+                codeGenerationTask.configure { it.dependsOn("licensee$capitalizedVariantName") }
             }
         }
     }
