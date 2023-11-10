@@ -1,0 +1,29 @@
+public abstract class io/github/usefulness/licensee/AssetCopyTask : org/gradle/api/DefaultTask {
+	public fun <init> ()V
+	public final fun action ()V
+	public abstract fun getInputFile ()Lorg/gradle/api/file/RegularFileProperty;
+	public abstract fun getOutputDirectory ()Lorg/gradle/api/file/DirectoryProperty;
+	public abstract fun getTargetFileName ()Lorg/gradle/api/provider/Property;
+}
+
+public abstract class io/github/usefulness/licensee/CodeGenerationTask : org/gradle/api/DefaultTask {
+	public fun <init> ()V
+	public final fun action ()V
+	public abstract fun getInputFile ()Lorg/gradle/api/file/RegularFileProperty;
+	public abstract fun getOutputDirectory ()Lorg/gradle/api/file/DirectoryProperty;
+}
+
+public class io/github/usefulness/licensee/LicenseeForAndroidExtension {
+	public fun <init> (Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun getAndroidAssetFileName ()Lorg/gradle/api/provider/Property;
+	public final fun getEnableAndroidAssetGeneration ()Lorg/gradle/api/provider/Property;
+	public final fun getEnableKotlinCodeGeneration ()Lorg/gradle/api/provider/Property;
+	public final fun getSingularVariantName ()Lorg/gradle/api/provider/Property;
+}
+
+public final class io/github/usefulness/licensee/LicenseeForAndroidPlugin : org/gradle/api/Plugin {
+	public fun <init> ()V
+	public synthetic fun apply (Ljava/lang/Object;)V
+	public fun apply (Lorg/gradle/api/Project;)V
+}
+
