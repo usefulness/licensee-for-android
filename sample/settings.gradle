@@ -17,6 +17,15 @@ pluginManagement {
             }
         }
     }
+    if (settings.hasProperty("agpVersion")) {
+        def agpVersion = settings.agpVersion
+        logger.quiet("AGP version=$agpVersion")
+        resolutionStrategy.eachPlugin {
+            if (requested.id.id == "com.android.library") {
+                useModule("com.android.tools.build:gradle:$agpVersion")
+            }
+        }
+    }
 }
 
 dependencyResolutionManagement {

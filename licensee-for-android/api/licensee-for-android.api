@@ -13,16 +13,17 @@ public abstract class se/premex/gross/CodeGenerationTask : org/gradle/api/Defaul
 	public abstract fun getOutputDirectory ()Lorg/gradle/api/file/DirectoryProperty;
 }
 
-public abstract interface class se/premex/gross/GrossExtension {
-	public abstract fun getAndroidAssetFileName ()Lorg/gradle/api/provider/Property;
-	public abstract fun getEnableAndroidAssetGeneration ()Lorg/gradle/api/provider/Property;
-	public abstract fun getEnableKotlinCodeGeneration ()Lorg/gradle/api/provider/Property;
-	public abstract fun getSingularVariantName ()Lorg/gradle/api/provider/Property;
-}
-
 public final class se/premex/gross/GrossPlugin : org/gradle/api/Plugin {
 	public fun <init> ()V
 	public synthetic fun apply (Ljava/lang/Object;)V
 	public fun apply (Lorg/gradle/api/Project;)V
+}
+
+public class se/premex/gross/LicenseeForAndroidExtension {
+	public fun <init> (Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun getAndroidAssetFileName ()Lorg/gradle/api/provider/Property;
+	public final fun getEnableAndroidAssetGeneration ()Lorg/gradle/api/provider/Property;
+	public final fun getEnableKotlinCodeGeneration ()Lorg/gradle/api/provider/Property;
+	public final fun getSingularVariantName ()Lorg/gradle/api/provider/Property;
 }
 
