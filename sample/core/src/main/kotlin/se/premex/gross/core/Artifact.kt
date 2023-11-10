@@ -3,13 +3,20 @@ package se.premex.gross.core
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SpdxLicenses(val identifier: String, val name: String, val url: String)
+data class SpdxLicenses(
+    val identifier: String,
+    val name: String,
+    val url: String,
+)
 
 @Serializable
 data class Scm(val url: String)
 
 @Serializable
-data class UnknownLicenses(val name: String, val url: String)
+data class UnknownLicenses(
+    val name: String,
+    val url: String,
+)
 
 @Serializable
 data class Artifact(

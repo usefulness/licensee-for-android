@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapperKt
 
 plugins {
     alias(libs.plugins.starter.config)
@@ -11,6 +12,14 @@ commonConfig {
 
 allprojects {
     pluginManager.withPlugin("kotlin") { plugin ->
+        def kotlinVersion = KotlinPluginWrapperKt.getKotlinPluginVersion(project)
+        configurations.matching { it.name != "detekt" }.configureEach {
+            resolutionStrategy.eachDependency {
+                if (requested.group == 'org.jetbrains.kotlin' && requested.name.startsWith("kotlin")) {
+                    useVersion kotlinVersion
+                }
+            }
+        }
         kotlin {
             jvmToolchain(21)
         }
@@ -18,7 +27,7 @@ allprojects {
     pluginManager.withPlugin("java") {
         if (project.hasProperty("skipJarVersion")) {
             tasks.named("jar") {
-                archiveFile.set(new File(project.buildDir, "libs/${project.name}.jar"))
+                archiveFile.set(project.layout.buildDirectory.map { it.file("libs/${project.name}.jar")})
             }
         }
     }
