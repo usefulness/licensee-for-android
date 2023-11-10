@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import io.githhub.usefulness.licensee.android.app.R
 import se.premex.gross.core.Artifact
 import se.premex.gross.core.Scm
 import se.premex.gross.core.SpdxLicenses

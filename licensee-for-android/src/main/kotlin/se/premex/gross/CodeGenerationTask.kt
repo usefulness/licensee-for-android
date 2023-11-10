@@ -6,6 +6,8 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.okio.decodeFromBufferedSource
 import okio.buffer
 import okio.source
 import org.gradle.api.DefaultTask
@@ -17,7 +19,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
-import se.premex.gross.core.LicenseParser
+import se.premex.gross.core.Artifact
 
 @CacheableTask
 abstract class CodeGenerationTask : DefaultTask() {
@@ -42,7 +44,7 @@ abstract class CodeGenerationTask : DefaultTask() {
             .addType(licenseeTypesGenerator.artifactTypeSpec)
             .build().writeTo(outputDirectory.asFile.get())
 
-        val artifacts = LicenseParser().decode(inputFile.asFile.get().source().buffer())
+        val artifacts = Json.decodeFromBufferedSource<List<Artifact>>(inputFile.asFile.get().source().buffer())
 
         val artifactCodeGenerator = ArtifactCodeGenerator(
             packageName = packageName,
