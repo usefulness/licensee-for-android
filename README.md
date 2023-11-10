@@ -1,4 +1,9 @@
-# lincesee-for-android
+# licensee-for-android
+
+[![Build Status](https://github.com/usefulness/licensee-for-android/workflows/Build%20Project/badge.svg)](https://github.com/usefulness/licensee-for-android/actions)
+[![Latest Version](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/io/github/usefulness/licensee-for-android/maven-metadata.xml?label=gradle)](https://plugins.gradle.org/plugin/io.github.usefulness.licensee-for-android)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.usefulness/licensee-for-android)
+
 
 Turn raw [cashapp/licensee](https://github.com/cashapp/licensee) report into assets/Kotlin code that can be easily consumed from an Android app
 
