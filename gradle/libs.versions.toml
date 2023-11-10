@@ -1,20 +1,32 @@
 [versions]
-activity-compose = "1.7.0"
+gradle-starter = "0.65.0"
+gradle-pluginpublish = "1.2.1"
+gradle-doctor = "0.9.0"
+google-agp = "8.1.3"
+maven-kotlin-serialization = "1.6.0"
+maven-kotlin = "1.9.20"
+maven-junit = "5.10.1"
+maven-assertj = "3.24.2"
+
+activity-compose = "1.8.0"
 androidx-compose-compiler = "1.4.7"
-androidx-core = "1.9.0"
+androidx-core = "1.12.0"
 androidx-test-ext-junit = "1.1.5"
-com-android-application = "8.0.0"
+com-android-application = "8.1.3"
 com-squareup-moshi = "1.15.0"
-compose-bom = "2023.03.00"
-core-ktx = "1.9.0"
+compose-bom = "2023.10.01"
+core-ktx = "1.12.0"
 espresso-core = "3.5.1"
 junit = "4.13.2"
-lifecycle-runtime-ktx = "2.6.1"
-org-jetbrains-kotlin-android = "1.8.21"
+lifecycle-runtime-ktx = "2.6.2"
 
 [libraries]
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "maven-junit" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "maven-assertj" }
+
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
-androidx-lifecycle-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-beta01"
+androidx-lifecycle-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
 com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "com-android-application" }
 com-squareup-moshi = { module = "com.squareup.moshi:moshi", version.ref = "com-squareup-moshi" }
@@ -30,7 +42,7 @@ androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-runtime-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
 androidx-compose-ui-ui-text = { module = "androidx.compose.ui:ui-text" }
-com-squareup-okio = "com.squareup.okio:okio:3.5.0"
+com-squareup-okio = "com.squareup.okio:okio:3.6.0"
 androidx-core-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
@@ -38,11 +50,11 @@ junit = { module = "junit:junit", version.ref = "junit" }
 org-jetbrains-kotlinx-kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 material3 = { module = "androidx.compose.material3:material3" }
-org-jetbrains-kotlin-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin-android" }
-org-jetbrains-kotlinx-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
-org-jetbrains-kotlinx-kotlinx-serialization-json-jvm = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.5.1"
-org-jetbrains-kotlinx-kotlinx-serialization-json-okio = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio:1.5.1"
-org-jetbrains-kotlin-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "org-jetbrains-kotlin-android" }
+org-jetbrains-kotlin-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "maven-kotlin" }
+org-jetbrains-kotlinx-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
+org-jetbrains-kotlinx-kotlinx-serialization-json-jvm = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm", version.ref = "maven-kotlin-serialization" }
+org-jetbrains-kotlinx-kotlinx-serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "maven-kotlin-serialization" }
+org-jetbrains-kotlin-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "maven-kotlin" }
 ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
@@ -51,9 +63,11 @@ ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 
 [plugins]
-app-cash-licensee = "app.cash.licensee:1.7.0"
-com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
-com-android-library = { id = "com.android.library", version.ref = "com-android-application" }
-com-github-ben-manes-versions = "com.github.ben-manes.versions:0.47.0"
-nl-littlerobots-version-catalog-update = "nl.littlerobots.version-catalog-update:0.8.0"
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+starter-config = { id = "com.starter.config", version.ref = "gradle-starter" }
+starter-versioning = { id = "com.starter.versioning", version.ref = "gradle-starter" }
+starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }
+starter-library-android = { id = "com.starter.library.android", version.ref = "gradle-starter" }
+gradle-pluginpublish = { id = "com.gradle.plugin-publish", version.ref = "gradle-pluginpublish" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin-serialization" }
+osacky-doctor = { id = "com.osacky.doctor", version.ref = "gradle-doctor" }
+app-cash-licensee = "app.cash.licensee:1.8.0"

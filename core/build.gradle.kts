@@ -1,15 +1,8 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    kotlin("jvm") version "1.8.21"
-    kotlin("plugin.serialization") version "1.8.21"
-    id("io.gitlab.arturbosch.detekt") version "1.23.0"
-
+    kotlin("jvm") version "1.9.20"
+    kotlin("plugin.serialization") version "1.9.20"
 }
 
-detekt {
-    autoCorrect = true
-    buildUponDefaultConfig = true
-}
 
 group = "se.premex.gross"
 version = "1.0"
