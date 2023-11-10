@@ -1,0 +1,51 @@
+import org.gradle.kotlin.dsl.ProjectExtensionsKt
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id("java-gradle-plugin")
+    alias(libs.plugins.gradle.pluginpublish)
+    alias(libs.plugins.starter.library.kotlin)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+dependencies {
+    compileOnly(libs.agp.gradle.api)
+    compileOnly(libs.kotlin.gradle.api)
+    implementation("com.squareup:kotlinpoet:1.14.2") {
+        exclude(module: "kotlin-reflect")
+    }
+
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json.okio)
+    implementation(libs.com.squareup.okio)
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.assertj.core)
+}
+
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        apiVersion = "1.8"
+        languageVersion = "1.8"
+    }
+}
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+description = "A plugin that generates a list of open source licenses you depend on"
+
+gradlePlugin {
+    plugins {
+        create("gross") {
+            id = "io.github.usefulness.licensee-for-android"
+            displayName = "ktlint Gradle plugin"
+            description = project.description
+            tags.addAll(["tooling", "open source", "premex"])
+            implementationClass = "se.premex.gross.GrossPlugin"
+        }
+    }
+}
+
+
