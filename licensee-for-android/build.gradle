@@ -14,12 +14,12 @@ dependencies {
     implementation(libs.com.squareup.kotlinpoet) {
         exclude(module: "kotlin-reflect")
     }
-
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.json.okio)
     implementation(libs.com.squareup.okio)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
+
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.assertj.core)
 }
@@ -28,7 +28,6 @@ dependencies {
 kotlin {
     explicitApi()
 }
-
 
 tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
@@ -46,10 +45,10 @@ gradlePlugin {
     plugins {
         create("gross") {
             id = "io.github.usefulness.licensee-for-android"
-            displayName = "ktlint Gradle plugin"
+            displayName = "`cashapp/licensee` helper for Android"
             description = project.description
-            tags.addAll(["tooling", "open source", "premex"])
-            implementationClass = "se.premex.gross.GrossPlugin"
+            tags.addAll(["licensee", "android", "kotlin", "assets", "resources"])
+            implementationClass = "io.github.usefulness.licensee.LicenseeForAndroidPlugin"
         }
     }
 }

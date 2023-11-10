@@ -1,4 +1,4 @@
-package se.premex.gross.core
+package io.github.usefulness.licensee.core
 
 import kotlinx.serialization.Serializable
 

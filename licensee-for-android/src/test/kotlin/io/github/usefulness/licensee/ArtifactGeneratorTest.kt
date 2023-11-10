@@ -1,11 +1,11 @@
-package se.premex.gross
+package io.github.usefulness.licensee
 
+import io.github.usefulness.licensee.core.Artifact
+import io.github.usefulness.licensee.core.Scm
+import io.github.usefulness.licensee.core.SpdxLicenses
+import io.github.usefulness.licensee.core.UnknownLicenses
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import se.premex.gross.core.Artifact
-import se.premex.gross.core.Scm
-import se.premex.gross.core.SpdxLicenses
-import se.premex.gross.core.UnknownLicenses
 
 class ArtifactGeneratorTest {
 

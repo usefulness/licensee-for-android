@@ -1,4 +1,4 @@
-package se.premex.gross
+package io.github.usefulness.licensee
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty

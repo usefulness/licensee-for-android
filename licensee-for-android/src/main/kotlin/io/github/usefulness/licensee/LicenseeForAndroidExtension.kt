@@ -1,4 +1,4 @@
-package se.premex.gross
+package io.github.usefulness.licensee
 
 import org.gradle.api.Incubating
 import org.gradle.api.model.ObjectFactory

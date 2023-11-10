@@ -1,4 +1,4 @@
-package se.premex.gross
+package io.github.usefulness.licensee
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec

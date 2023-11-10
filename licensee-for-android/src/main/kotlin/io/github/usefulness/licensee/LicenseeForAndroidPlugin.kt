@@ -1,11 +1,11 @@
-package se.premex.gross
+package io.github.usefulness.licensee
 
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.reporting.ReportingExtension
 
-public class GrossPlugin : Plugin<Project> {
+public class LicenseeForAndroidPlugin : Plugin<Project> {
 
     override fun apply(project: Project): Unit = with(project) {
         val extension = extensions.create("licenseeForAndroid", LicenseeForAndroidExtension::class.java)

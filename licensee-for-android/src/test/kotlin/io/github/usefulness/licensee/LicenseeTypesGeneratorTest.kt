@@ -1,4 +1,4 @@
-package se.premex.gross
+package io.github.usefulness.licensee
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
