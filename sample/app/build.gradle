@@ -1,8 +1,7 @@
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.starter.application.android)
     alias(libs.plugins.app.cash.licensee)
-    id("se.premex.gross")
+    id("io.github.usefulness.licensee-for-android")
 }
 
 licensee {
@@ -14,38 +13,25 @@ gross {
     enableAndroidAssetGeneration.set(true)
 }
 android {
-    namespace = "se.premex.gross"
-    compileSdk = 33
+    namespace "io.githhub.usefulness.licensee.android.app"
 
     defaultConfig {
-        applicationId = "se.premex.gross"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = "io.githhub.usefulness.licensee.android.app"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        named("release") {
+            minifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            matchingFallbacks += ["debug"]
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    lint {
+        checkReleaseBuilds = false
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
     }
@@ -59,15 +45,7 @@ android {
     }
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-        vendor.set(JvmVendorSpec.AZUL)
-    }
-}
-
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -77,11 +55,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
 
-    // In theory we should be able to refer to "se.premex.gross:ui-oss" here and set a mapping up
-    // in the includeBuild like this
-    // dependencySubstitution { substitute(module("se.premex.gross:ui-oss")).using(project(":oss")) }
-    // Unfortunately this does not work - maybe same issue as https://youtrack.jetbrains.com/issue/KTIJ-13435
-    implementation("se.premex.gross:ui:1.0")
+    implementation(project(":ui"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

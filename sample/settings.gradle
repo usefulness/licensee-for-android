@@ -29,5 +29,5 @@ dependencyResolutionManagement {
 rootProject.name = "io.github.usefulness.sample"
 
 include(":core")
-//include("app")
+include("app")
 include(":ui")

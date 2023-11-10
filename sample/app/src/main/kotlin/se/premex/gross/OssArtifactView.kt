@@ -8,7 +8,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import se.premex.gross.oss.R
+import io.githhub.usefulness.licensee.android.app.R
+import kotlinx.serialization.ExperimentalSerializationApi
 import se.premex.gross.ui.AssetLicenseParser
 import se.premex.gross.ui.ErrorView
 import se.premex.gross.ui.LoadingView
@@ -17,6 +18,7 @@ import se.premex.gross.ui.OssViewState
 import se.premex.gross.ui.State
 import java.io.IOException
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun AssetsOssView() {
     val assetManager = LocalContext.current.assets
@@ -27,14 +29,13 @@ fun AssetsOssView() {
 
     LaunchedEffect(key1 = assetManager) {
         try {
-            uiState.value =
-                OssViewState(viewState = State.Success(data = licenseParser.readFromAssets()))
+            uiState.value = OssViewState(viewState = State.Success(data = licenseParser.readFromAssets()))
         } catch (ioException: IOException) {
             uiState.value =
                 OssViewState(
                     viewState = State.Failed(
-                        errorMessage = ioException.localizedMessage ?: ""
-                    )
+                        errorMessage = ioException.localizedMessage ?: "",
+                    ),
                 )
         }
     }
@@ -44,7 +45,7 @@ fun AssetsOssView() {
         is State.Loading -> LoadingView(stringResource(id = R.string.loading))
         is State.Success -> {
             Column {
-                Text(text = stringResource(id = se.premex.gross.R.string.assetBased))
+                Text(text = stringResource(id = R.string.assetBased))
 
                 OssView(state.data)
             }
