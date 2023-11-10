@@ -1,5 +1,4 @@
 # lincesee-for-android
-___
 
 Turn raw [cashapp/licensee](https://github.com/cashapp/licensee) report into assets/Kotlin code that can be easily consumed from an Android app
 
