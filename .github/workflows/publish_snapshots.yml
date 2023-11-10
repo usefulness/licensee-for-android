@@ -41,9 +41,9 @@ jobs:
           key: diffuse-${{ github.sha }}
 
       - name: Check size
-        run: du -h ktlint-gradle-plugin/build/libs/licensee-for-android.jar
+        run: du -h licensee-for-android/build/libs/licensee-for-android.jar
         shell: bash
 
       - name: Copy diffuse base artifact to be picked by cache save
-        run: cp ktlint-gradle-plugin/build/libs/licensee-for-android.jar diffuse-base-file
+        run: cp licensee-for-android/build/libs/licensee-for-android.jar diffuse-base-file
         shell: bash

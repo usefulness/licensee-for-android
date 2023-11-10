@@ -15,8 +15,8 @@ dependencies {
         exclude(module: "kotlin-reflect")
     }
 
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json.okio)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.json.okio)
     implementation(libs.com.squareup.okio)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
