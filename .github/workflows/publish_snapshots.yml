@@ -1,0 +1,49 @@
+name: Publish Project Snapshot
+
+on:
+  push:
+    branches:
+      - 'master'
+  schedule:
+    - cron: '0 3 * * 1,4'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  diffuse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Write Gradle build properties to `~/.gradle/gradle.properties`
+        run: |
+          mkdir -p ~/.gradle
+          printf "org.gradle.jvmargs=-Xmx3G -XX:+UseParallelGC\n" >> ~/.gradle/gradle.properties
+          printf "org.gradle.vfs.watch=false\n" >> ~/.gradle/gradle.properties
+        shell: bash
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - uses: gradle/gradle-build-action@v2
+
+      - run: ./gradlew assemble -PskipJarVersion
+
+      - name: Upload diffuse base artifact
+        uses: actions/cache@v3
+        with:
+          path: diffuse-base-file
+          key: diffuse-${{ github.sha }}
+
+      - name: Check size
+        run: du -h ktlint-gradle-plugin/build/libs/licensee-for-android.jar
+        shell: bash
+
+      - name: Copy diffuse base artifact to be picked by cache save
+        run: cp ktlint-gradle-plugin/build/libs/licensee-for-android.jar diffuse-base-file
+        shell: bash

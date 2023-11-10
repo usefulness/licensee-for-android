@@ -1,0 +1,33 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    includeBuild("..")
+    repositories {
+        google {
+            content {
+                includeGroupByRegex "com\\.android.*"
+                includeGroupByRegex "androidx.*"
+                includeGroupByRegex "android.arch.*"
+                includeGroupByRegex "com\\.google.*"
+            }
+        }
+        gradlePluginPortal {
+            content {
+                excludeModule("io.github.usefulness", "lincensee-for-android")
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "io.github.usefulness.sample"
+
+include(":core")
+//include("app")
+include(":ui")

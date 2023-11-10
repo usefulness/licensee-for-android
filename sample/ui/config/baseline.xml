@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>FunctionNaming:ErrorView.kt$@Composable fun ErrorView(errorString: String, errorMessage: String, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:ErrorView.kt$@Composable fun ErrorView(modifier: Modifier = Modifier, content: @Composable () -&gt; Unit)</ID>
+    <ID>FunctionNaming:ErrorView.kt$@Preview @Composable private fun ErrorViewPreview()</ID>
+    <ID>FunctionNaming:LoadingView.kt$@Composable fun LoadingView(loadingTitle: String, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:LoadingView.kt$@Composable fun LoadingView(modifier: Modifier = Modifier, content: @Composable () -&gt; Unit = {})</ID>
+    <ID>FunctionNaming:LoadingView.kt$@Preview @Composable private fun PreviewLoadingView()</ID>
+    <ID>FunctionNaming:OssView.kt$@Composable fun CharacterHeader(initial: String, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:OssView.kt$@Composable fun LicenseSelector(title: String, licenses: List&lt;License&gt;, close: () -&gt; Unit)</ID>
+    <ID>FunctionNaming:OssView.kt$@Composable fun OssView(artifacts: List&lt;Artifact&gt;, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:OssView.kt$@Preview(showSystemUi = true) @Composable private fun LicenseSelectorPreview()</ID>
+    <ID>UnusedPrivateMember:ErrorView.kt$@Preview @Composable private fun ErrorViewPreview()</ID>
+    <ID>UnusedPrivateMember:LoadingView.kt$@Preview @Composable private fun PreviewLoadingView()</ID>
+    <ID>UnusedPrivateMember:OssView.kt$@Preview(showSystemUi = true) @Composable private fun LicenseSelectorPreview()</ID>
+  </CurrentIssues>
+</SmellBaseline>

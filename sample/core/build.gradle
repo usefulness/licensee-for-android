@@ -1,0 +1,14 @@
+plugins {
+    alias(libs.plugins.starter.library.android)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+    namespace "io.githhub.usefulness.licensee.android.core"
+}
+
+dependencies {
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.serialization.json.okio)
+    api(libs.com.squareup.okio)
+}

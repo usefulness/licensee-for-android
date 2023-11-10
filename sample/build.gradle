@@ -1,0 +1,20 @@
+plugins {
+    alias(libs.plugins.starter.config)
+    alias(libs.plugins.starter.library.android) apply false
+}
+
+commonConfig {
+    javaVersion = JavaVersion.VERSION_1_8
+}
+
+subprojects {
+    pluginManager.withPlugin("io.gitlab.arturbosch.detekt") {
+        detekt {
+            baseline = file("config/baseline.xml")
+        }
+        tasks.named("detektBaseline") {
+            jvmTarget = "20"
+        }
+    }
+
+}
