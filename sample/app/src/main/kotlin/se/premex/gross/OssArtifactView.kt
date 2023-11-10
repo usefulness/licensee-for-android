@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import se.premex.gross.oss.R
+import io.githhub.usefulness.licensee.android.app.R
 import se.premex.gross.ui.AssetLicenseParser
 import se.premex.gross.ui.ErrorView
 import se.premex.gross.ui.LoadingView
@@ -33,8 +33,8 @@ fun AssetsOssView() {
             uiState.value =
                 OssViewState(
                     viewState = State.Failed(
-                        errorMessage = ioException.localizedMessage ?: ""
-                    )
+                        errorMessage = ioException.localizedMessage ?: "",
+                    ),
                 )
         }
     }
@@ -44,7 +44,7 @@ fun AssetsOssView() {
         is State.Loading -> LoadingView(stringResource(id = R.string.loading))
         is State.Success -> {
             Column {
-                Text(text = stringResource(id = se.premex.gross.R.string.assetBased))
+                Text(text = stringResource(id = R.string.assetBased))
 
                 OssView(state.data)
             }

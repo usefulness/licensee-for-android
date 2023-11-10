@@ -22,7 +22,8 @@ import androidx.compose.ui.res.stringResource
 import se.premex.gross.ui.theme.GrossTheme
 
 enum class Views {
-    Programmatic, AssetBased
+    Programmatic,
+    AssetBased,
 }
 
 class MainActivity : ComponentActivity() {
@@ -43,9 +44,10 @@ class MainActivity : ComponentActivity() {
                                 icon = {
                                     Icon(
                                         imageVector = Icons.Rounded.Create,
-                                        contentDescription = stringResource(id = R.string.programmatic)
+                                        contentDescription = stringResource(id = R.string.programmatic),
                                     )
-                                })
+                                },
+                            )
                             NavigationBarItem(
                                 selected = false,
                                 onClick = {
@@ -54,17 +56,18 @@ class MainActivity : ComponentActivity() {
                                 icon = {
                                     Icon(
                                         imageVector = Icons.Rounded.AddCircle,
-                                        contentDescription = stringResource(id = R.string.assetBased)
+                                        contentDescription = stringResource(id = R.string.assetBased),
                                     )
-                                })
+                                },
+                            )
                         }
-                    }
+                    },
                 ) { paddingValues ->
                     Surface(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues),
-                        color = MaterialTheme.colorScheme.background
+                        color = MaterialTheme.colorScheme.background,
                     ) {
                         when (selectedView.value) {
                             Views.Programmatic -> ProgrammaticOssView()
