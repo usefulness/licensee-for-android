@@ -18,6 +18,7 @@ lifecycle-runtime-ktx = "2.6.2"
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "maven-junit" }
+junit-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "maven-assertj" }
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
@@ -43,15 +44,11 @@ androidx-compose-runtime-runtime-livedata = { module = "androidx.compose.runtime
 androidx-compose-ui-ui-text = { module = "androidx.compose.ui:ui-text" }
 androidx-core-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
 org-jetbrains-kotlinx-kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 material3 = { module = "androidx.compose.material3:material3" }
-org-jetbrains-kotlin-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "maven-kotlin" }
 ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 io-nlopez-compose = "io.nlopez.compose.rules:ktlint:0.3.3"

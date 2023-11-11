@@ -4,6 +4,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.withIndent
 import io.github.usefulness.licensee.core.Artifact
 
 internal class ArtifactCodeGenerator(
@@ -13,59 +14,57 @@ internal class ArtifactCodeGenerator(
     private val unknownLicensesTypeSpec: TypeSpec,
 ) {
 
-    @Suppress("SpreadOperator")
-    fun artifactCodeBlock(artifact: Artifact): CodeBlock {
-        val arguments = mutableListOf<Any>()
+    fun artifactCodeBlock(artifact: Artifact) = CodeBlock.builder()
+        .withIndent {
+            addStatement("Artifact(")
+            withIndent {
+                addStatement("groupId = %S,", artifact.groupId)
+                addStatement("artifactId = %S,", artifact.artifactId)
+                addStatement("version = %S,", artifact.version)
+                addStatement("name = %S,", artifact.name)
 
-        val statement = buildString {
-            appendLine(
-                """Artifact(
-                    |groupId = %S,
-                    |artifactId = %S,
-                    |version = %S,
-                """.trimMargin(),
-            )
-            arguments.add(artifact.groupId)
-            arguments.add(artifact.artifactId)
-            arguments.add(artifact.version)
-            if (artifact.name != null) {
-                appendLine("""name = %S,""")
-                arguments.add(artifact.name)
-            } else {
-                appendLine("""name = null,""")
+                if (artifact.spdxLicenses.isNullOrEmpty()) {
+                    addStatement("spdxLicenses = %M(),", MemberName("kotlin.collections", "emptyList"))
+                } else {
+                    addStatement("spdxLicenses = %M(", MemberName("kotlin.collections", "listOf"))
+                    withIndent {
+                        artifact.spdxLicenses.forEach { license ->
+                            addStatement("%T(", ClassName(packageName, spdxLicensesTypeSpec.name!!))
+                            withIndent {
+                                addStatement("identifier = %S,", license.identifier)
+                                addStatement("name = %S,", license.name)
+                                addStatement("url = %S,", license.url)
+                            }
+                            addStatement("),")
+                        }
+                    }
+                    addStatement("),")
+                }
+
+                if (artifact.scm == null) {
+                    addStatement("scm = null,")
+                } else {
+                    addStatement("scm = %T(url = %S),", ClassName(packageName, scmTypeSpec.name!!), artifact.scm.url)
+                }
+
+                if (artifact.unknownLicenses.isNullOrEmpty()) {
+                    addStatement("unknownLicenses = %M(),", MemberName("kotlin.collections", "emptyList"))
+                } else {
+                    addStatement("unknownLicenses = %M(", MemberName("kotlin.collections", "listOf"))
+                    withIndent {
+                        artifact.unknownLicenses.forEach { license ->
+                            addStatement("%T(", ClassName(packageName, unknownLicensesTypeSpec.name!!))
+                            withIndent {
+                                addStatement("name = %S,", license.name)
+                                addStatement("url = %S,", license.url)
+                            }
+                            addStatement("),")
+                        }
+                    }
+                    addStatement("),")
+                }
             }
-
-            appendLine("""spdxLicenses = %M(""")
-            arguments.add(MemberName("kotlin.collections", "listOf"))
-            artifact.spdxLicenses?.forEach {
-                appendLine("""%T(identifier = %S, name = %S, url = %S)""".trimMargin())
-                arguments.add(ClassName(packageName, spdxLicensesTypeSpec.name!!))
-                arguments.add(it.identifier)
-                arguments.add(it.name)
-                arguments.add(it.url)
-            }
-            appendLine("""),""")
-
-            if (artifact.scm != null) {
-                appendLine("""scm = %T(%S), """.trimMargin())
-                arguments.add(ClassName(packageName, scmTypeSpec.name!!))
-                arguments.add(artifact.scm.url)
-            } else {
-                appendLine("""scm = null, """.trimMargin())
-            }
-
-            appendLine("""unknownLicenses = %M(""")
-            arguments.add(MemberName("kotlin.collections", "listOf"))
-            artifact.unknownLicenses?.forEach {
-                appendLine("""%T(name = %S, url = %S)""".trimMargin())
-                arguments.add(ClassName(packageName, unknownLicensesTypeSpec.name!!))
-                arguments.add(it.name)
-                arguments.add(it.url)
-            }
-            appendLine("""),""")
-
-            appendLine("""|)""".trimMargin())
+            addStatement("),")
         }
-        return CodeBlock.builder().addStatement(statement, *arguments.toTypedArray()).build()
-    }
+        .build()
 }

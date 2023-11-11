@@ -1,11 +1,10 @@
 package se.premex.gross.oss
 
-import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.ExperimentalSerializationApi
 import okio.buffer
 import okio.source
+import org.junit.jupiter.api.Test
 import se.premex.gross.core.LicenseParser
-import kotlin.test.Test
 
 private const val ARTIFACTS_SMALL = """[
     {
@@ -80,14 +79,14 @@ private const val ARTIFACTS_MEDIUM = """[
 class LicenseParserTest {
     @Test
     @ExperimentalSerializationApi
-    fun testSmall() = runTest {
+    fun testSmall() {
         val licenseParser = object : LicenseParser {}
         licenseParser.decode(ARTIFACTS_SMALL.byteInputStream().source().buffer())
     }
 
     @Test
     @ExperimentalSerializationApi
-    fun testMedium() = runTest {
+    fun testMedium() {
         val licenseParser = object : LicenseParser {}
         licenseParser.decode(ARTIFACTS_MEDIUM.byteInputStream().source().buffer())
     }

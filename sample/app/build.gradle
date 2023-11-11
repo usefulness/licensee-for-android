@@ -11,7 +11,6 @@ licensee {
 licenseeForAndroid {
     enableKotlinCodeGeneration = true
     enableAndroidAssetGeneration = true
-    singularVariantName = "release"
 }
 android {
     namespace "io.githhub.usefulness.licensee.android.app"
@@ -35,6 +34,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
@@ -45,19 +45,29 @@ android {
         }
     }
 }
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
 
 dependencies {
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.ui)
     implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+
 
     implementation(project(":ui"))
 
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
+    //noinspection UseTomlInstead, see `PluginIntegrationTest`
+    debugImplementation("androidx.viewpager2:viewpager2:1.0.0")
+    debugImplementation(libs.ui.tooling.preview)
+
+    testRuntimeOnly(libs.junit.jupiter.launcher)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.assertj.core)
 }

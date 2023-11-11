@@ -57,7 +57,6 @@ public abstract class CodeGenerationTask : DefaultTask() {
             addStatement("%M(", MemberName("kotlin.collections", "listOf"))
             artifacts.forEach { artifact ->
                 add(artifactCodeGenerator.artifactCodeBlock(artifact))
-                addStatement(",")
             }
             addStatement(")")
         }.build()
