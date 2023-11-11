@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.githhub.usefulness.licensee.android.ui.R
-import se.premex.gross.core.Artifact
+import io.github.usefulness.licensee.core.Artifact
 
 @Composable
 fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {

@@ -1,10 +1,9 @@
 package se.premex.gross.oss
 
-import kotlinx.serialization.ExperimentalSerializationApi
+import io.github.usefulness.licensee.core.LicenseeParser
 import okio.buffer
 import okio.source
 import org.junit.jupiter.api.Test
-import se.premex.gross.core.LicenseParser
 
 private const val ARTIFACTS_SMALL = """[
     {
@@ -76,19 +75,15 @@ private const val ARTIFACTS_MEDIUM = """[
     }
 ]"""
 
-class LicenseParserTest {
+class LicenseeParserTest {
 
     @Test
-    @ExperimentalSerializationApi
     fun testSmall() {
-        val licenseParser = object : LicenseParser {}
-        licenseParser.decode(ARTIFACTS_SMALL.byteInputStream().source().buffer())
+        LicenseeParser.decode(ARTIFACTS_SMALL.byteInputStream().source().buffer())
     }
 
     @Test
-    @ExperimentalSerializationApi
     fun testMedium() {
-        val licenseParser = object : LicenseParser {}
-        licenseParser.decode(ARTIFACTS_MEDIUM.byteInputStream().source().buffer())
+        LicenseeParser.decode(ARTIFACTS_MEDIUM.byteInputStream().source().buffer())
     }
 }

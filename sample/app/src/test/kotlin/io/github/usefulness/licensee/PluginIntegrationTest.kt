@@ -1,39 +1,32 @@
 package io.github.usefulness.licensee
 
-import io.githhub.usefulness.licensee.android.app.BuildConfig
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import se.premex.gross.ui.AssetLicenseeParser
 
+@RunWith(RobolectricTestRunner::class)
 class PluginIntegrationTest {
 
     @Test
     fun checkGeneratedCode() {
-        assertThat(Licensee.artifacts).isNotEmpty()
-        val viewPagers = Licensee.artifacts.filter { it.groupId == "androidx.viewpager2" && it.artifactId == "viewpager2" }
+        checkLoadedArtifacts(
+            artifacts = Licensee.artifacts,
+            isViewPager2Dependency = { groupId == "androidx.viewpager2" && artifactId == "viewpager2" },
+        )
+    }
 
-        @Suppress("KotlinConstantConditions")
-        when (BuildConfig.BUILD_TYPE) {
-            "release" -> assertThat(viewPagers).isEmpty()
-            "debug" -> assertThat(viewPagers.single()).isEqualTo(
-                Artifact(
-                    groupId = "androidx.viewpager2",
-                    artifactId = "viewpager2",
-                    version = "1.0.0",
-                    name = "AndroidX Widget ViewPager2",
-                    spdxLicenses = listOf(
-                        SpdxLicenses(
-                            identifier = "Apache-2.0",
-                            name = "Apache License 2.0",
-                            url = "https://www.apache.org/licenses/LICENSE-2.0",
-                        ),
-                    ),
-                    scm = Scm(url = "http://source.android.com"),
-                    unknownLicenses = emptyList(),
-                ),
-            )
+    @Test
+    fun checkAssets() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val source = runBlocking { AssetLicenseeParser(context.assets).readFromAssets() }
 
-            else -> error("Not supported")
-        }
-        assertThat(Licensee.artifacts).isNotEmpty()
+        checkLoadedArtifacts(
+            artifacts = source,
+            isViewPager2Dependency = { groupId == "androidx.viewpager2" && artifactId == "viewpager2" },
+        )
     }
 }

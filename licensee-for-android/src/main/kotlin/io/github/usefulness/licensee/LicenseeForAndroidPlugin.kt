@@ -58,6 +58,7 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
                     CodeGenerationTask::class.java,
                 ) {
                     it.inputFile.set(artifactsFile)
+                    it.packageName.set(extension.generatedPackageName)
                 }
 
                 // Do NOT use `.kotlin` here: https://issuetracker.google.com/issues/268248348

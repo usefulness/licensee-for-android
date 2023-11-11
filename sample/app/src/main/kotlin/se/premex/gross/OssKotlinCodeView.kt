@@ -5,12 +5,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import io.githhub.usefulness.licensee.android.app.R
-import se.premex.gross.core.Artifact
-import se.premex.gross.core.Scm
-import se.premex.gross.core.SpdxLicenses
-import se.premex.gross.core.UnknownLicenses
-import se.premex.gross.ui.OssView
 import io.github.usefulness.licensee.Licensee
+import io.github.usefulness.licensee.core.Artifact
+import io.github.usefulness.licensee.core.Scm
+import io.github.usefulness.licensee.core.SpdxLicenses
+import io.github.usefulness.licensee.core.UnknownLicenses
+import se.premex.gross.ui.OssView
 
 @Composable
 fun ProgrammaticOssView() {

@@ -31,7 +31,9 @@ android {
     lint {
         checkReleaseBuilds = false
     }
-
+    testOptions {
+        unitTests.includeAndroidResources true
+    }
     buildFeatures {
         compose = true
         buildConfig = true
@@ -58,16 +60,18 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.material3)
 
-
     implementation(project(":ui"))
 
     //noinspection UseTomlInstead, see `PluginIntegrationTest`
     debugImplementation("androidx.viewpager2:viewpager2:1.0.0")
     debugImplementation(libs.ui.tooling.preview)
 
-    testRuntimeOnly(libs.junit.jupiter.launcher)
-    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.junit.vintage.engine)
 
-    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit4)
     testImplementation(libs.assertj.core)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.org.robolectric.core)
+    testImplementation(libs.kotlinx.serialization.json.okio)
 }

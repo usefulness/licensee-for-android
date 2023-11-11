@@ -1,6 +1,6 @@
 package se.premex.gross.ui
 
-import se.premex.gross.core.Artifact
+import io.github.usefulness.licensee.core.Artifact
 
 sealed class State<T> {
     class Loading<T> : State<T>()
