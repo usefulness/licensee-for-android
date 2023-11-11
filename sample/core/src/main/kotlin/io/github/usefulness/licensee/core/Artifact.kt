@@ -1,4 +1,4 @@
-package se.premex.gross.core
+package io.github.usefulness.licensee.core
 
 import kotlinx.serialization.Serializable
 
@@ -24,7 +24,7 @@ data class Artifact(
     val artifactId: String,
     val version: String,
     val name: String? = null,
-    val spdxLicenses: List<SpdxLicenses>? = null,
+    val spdxLicenses: List<SpdxLicenses> = emptyList(),
     val scm: Scm? = null,
-    val unknownLicenses: List<UnknownLicenses>? = null,
+    val unknownLicenses: List<UnknownLicenses> = emptyList(),
 )

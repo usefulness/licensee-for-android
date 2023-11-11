@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class LicenseeTypesGeneratorTest {
 
-    private val packageName = "se.premex.gross"
+    private val packageName = "io.github.usefulness.licensee"
 
     @Test
     fun testSpdxLicenses() {
@@ -55,9 +55,9 @@ class LicenseeTypesGeneratorTest {
   public val artifactId: kotlin.String,
   public val version: kotlin.String,
   public val name: kotlin.String?,
-  public val spdxLicenses: kotlin.collections.List<se.premex.gross.SpdxLicenses>,
-  public val scm: se.premex.gross.Scm?,
-  public val unknownLicenses: kotlin.collections.List<se.premex.gross.UnknownLicenses>,
+  public val spdxLicenses: kotlin.collections.List<io.github.usefulness.licensee.SpdxLicenses>,
+  public val scm: io.github.usefulness.licensee.Scm?,
+  public val unknownLicenses: kotlin.collections.List<io.github.usefulness.licensee.UnknownLicenses>,
 )
 """
         assertThat(licenseeTypesGenerator.artifactTypeSpec.toString()).isEqualTo(artifactDefinition)

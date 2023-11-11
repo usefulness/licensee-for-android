@@ -1,11 +1,12 @@
-package se.premex.gross.core
+package io.github.usefulness.licensee.core
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.okio.decodeFromBufferedSource
 import okio.BufferedSource
 
-interface LicenseParser {
-    @ExperimentalSerializationApi
+object LicenseeParser {
+
+    @OptIn(ExperimentalSerializationApi::class)
     fun decode(source: BufferedSource) = Json.decodeFromBufferedSource<List<Artifact>>(source)
 }

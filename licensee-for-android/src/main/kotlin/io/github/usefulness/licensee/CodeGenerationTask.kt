@@ -14,7 +14,9 @@ import okio.source
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
@@ -23,7 +25,6 @@ import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
 public abstract class CodeGenerationTask : DefaultTask() {
-    private val packageName = "io.github.usefulness.licensee"
 
     @get:OutputDirectory
     public abstract val outputDirectory: DirectoryProperty
@@ -32,9 +33,13 @@ public abstract class CodeGenerationTask : DefaultTask() {
     @get:InputFile
     public abstract val inputFile: RegularFileProperty
 
+    @get:Input
+    public abstract val packageName: Property<String>
+
     @TaskAction
     @ExperimentalSerializationApi
     public fun action() {
+        val packageName = packageName.get()
         val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
 
         FileSpec.builder(packageName, "Artifact")
@@ -57,7 +62,6 @@ public abstract class CodeGenerationTask : DefaultTask() {
             addStatement("%M(", MemberName("kotlin.collections", "listOf"))
             artifacts.forEach { artifact ->
                 add(artifactCodeGenerator.artifactCodeBlock(artifact))
-                addStatement(",")
             }
             addStatement(")")
         }.build()

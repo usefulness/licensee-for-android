@@ -1,5 +1,21 @@
+import app.cash.licensee.LicenseeTask
+import io.github.usefulness.licensee.CodeGenerationTask
+
 plugins {
     alias(libs.plugins.starter.library.android)
+    alias(libs.plugins.app.cash.licensee)
+    id("io.github.usefulness.licensee-for-android")
+}
+
+licensee {
+    allow("Apache-2.0")
+}
+
+licenseeForAndroid {
+    enableKotlinCodeGeneration = true
+    enableAndroidAssetGeneration = false
+    generatedPackageName = "example.generated.from.library"
+    androidAssetFileName = "library_asset.json"
 }
 
 android {
@@ -16,6 +32,11 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
 }
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
 dependencies {
     api(project(":core"))
     implementation(platform(libs.androidx.compose.bom))
@@ -31,8 +52,11 @@ dependencies {
     implementation(libs.androidx.compose.material.material.icons.extended)
     implementation(libs.androidx.core.core.ktx)
 
-    testImplementation(libs.org.jetbrains.kotlin.kotlin.test.junit)
-    testImplementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
+    testRuntimeOnly(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.assertj.core)
 
     ktlintRuleSet(libs.io.nlopez.compose)
 }

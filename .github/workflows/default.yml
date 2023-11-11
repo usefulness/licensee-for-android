@@ -101,7 +101,7 @@ jobs:
         with:
           build-root-directory: sample
           gradle-version: ${{ matrix.gradle }}
-          arguments: assemble -PagpVersion=${{ matrix.agp }} --continue
+          arguments: check -PagpVersion=${{ matrix.agp }} --continue
 
       - name: Upload reports
         if: ${{ failure() }}

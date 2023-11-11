@@ -12,6 +12,7 @@ maven-binarycompatiblity = "0.13.2"
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "maven-junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "maven-assertj" }
 agp-gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "google-agp" }
 kotlin-gradle-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "maven-kotlin" }

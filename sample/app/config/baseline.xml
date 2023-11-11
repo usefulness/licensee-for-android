@@ -2,7 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>FunctionNaming:OssArtifactView.kt$@OptIn(ExperimentalSerializationApi::class) @Composable fun AssetsOssView()</ID>
+    <ID>FunctionNaming:OssArtifactView.kt$@Composable fun AssetsOssView()</ID>
     <ID>FunctionNaming:OssKotlinCodeView.kt$@Composable fun ProgrammaticOssView()</ID>
     <ID>FunctionNaming:Theme.kt$@Composable fun GrossTheme( darkTheme: Boolean = isSystemInDarkTheme(), // Dynamic color is available on Android 12+ dynamicColor: Boolean = true, content: @Composable () -&gt; Unit, )</ID>
     <ID>InvalidPackageDeclaration:MainActivity.kt$package io.githhub.usefulness.licensee.android.app</ID>
