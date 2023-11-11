@@ -11,6 +11,10 @@ public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
      */
     public val enableKotlinCodeGeneration: Property<Boolean> = objectFactory.property(default = false)
 
+    /**
+     * Generate kotlin code under given package
+     * Default: `io.github.usefulness.licensee`
+     */
     public val generatedPackageName: Property<String> = objectFactory.property(default = "io.github.usefulness.licensee")
 
     /**

@@ -1,5 +1,21 @@
+import app.cash.licensee.LicenseeTask
+import io.github.usefulness.licensee.CodeGenerationTask
+
 plugins {
     alias(libs.plugins.starter.library.android)
+    alias(libs.plugins.app.cash.licensee)
+    id("io.github.usefulness.licensee-for-android")
+}
+
+licensee {
+    allow("Apache-2.0")
+}
+
+licenseeForAndroid {
+    enableKotlinCodeGeneration = true
+    enableAndroidAssetGeneration = false
+    generatedPackageName = "example.generated.from.library"
+    androidAssetFileName = "library_asset.json"
 }
 
 android {

@@ -34,14 +34,16 @@ Options can be configured in the `licenseeForAndroid` extension:
 
 ```groovy
 licenseeForAndroid {
-  enableKotlinCodeGeneration = false
-  enableAndroidAssetGeneration = true
-  androidAssetFileName = "licensee_artifacts.json"
-  singularVariantName = null
+    enableKotlinCodeGeneration = false
+    generatedPackageName = "io.github.usefulness.licensee"
+    enableAndroidAssetGeneration = true
+    androidAssetFileName = "licensee_artifacts.json"
+    singularVariantName = null
 }
 ```
 
 - `enableKotlinCodeGeneration` - Generates a static list of open source assets 
+- `generatedPackageName` - Generate Kotlin code under given package 
 - `enableAndroidAssetGeneration` - Enable asset generation. Will copy licensee report to android asset directory making it available as `androidAssetFileName` 
 - `androidAssetFileName` - The name of the asset file the licensee report gets copied to. 
 - `singularVariantName` - The name of the build variant that all variants will use to have always the same licensed, regardless of app variant. (i.e. "productionRelease")

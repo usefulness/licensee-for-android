@@ -34,7 +34,7 @@ public abstract class CodeGenerationTask : DefaultTask() {
     public abstract val inputFile: RegularFileProperty
 
     @get:Input
-    public abstract val packageName : Property<String>
+    public abstract val packageName: Property<String>
 
     @TaskAction
     @ExperimentalSerializationApi
