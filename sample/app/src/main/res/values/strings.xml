@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Gross</string>
+    <string name="app_name">Licensee for Android</string>
     <string name="programmatic">Programmatic oss view</string>
-    <string name="assetBased">Asset baset oss view</string>
+    <string name="assetBased">Asset based oss view</string>
     <string name="error">Error</string>
     <string name="loading">Loading</string>
 </resources>

@@ -10,7 +10,7 @@ licensee {
 
 licenseeForAndroid {
     enableKotlinCodeGeneration = true
-    enableAndroidAssetGeneration = true
+    enableResourceGeneration = true
 }
 android {
     namespace "io.githhub.usefulness.licensee.android.app"
@@ -28,15 +28,15 @@ android {
             matchingFallbacks += ["debug"]
         }
     }
-    lint {
-        checkReleaseBuilds = false
+    buildFeatures {
+        compose = true
+        buildConfig = true
     }
     testOptions {
         unitTests.includeAndroidResources true
     }
-    buildFeatures {
-        compose = true
-        buildConfig = true
+    lint {
+        checkReleaseBuilds = false
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()

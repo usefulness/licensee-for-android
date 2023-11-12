@@ -1,6 +1,40 @@
+import io.github.usefulness.licensee.CodeGenerationTask
+
 plugins {
     alias(libs.plugins.starter.library.kotlin)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.app.cash.licensee)
+    id("io.github.usefulness.licensee-for-android")
+}
+
+licensee {
+    allow("Apache-2.0")
+}
+
+licenseeForAndroid {
+    enableKotlinCodeGeneration = true
+    enableResourceGeneration = true
+    generatedPackageName = "example.generated.from.kotlin.library"
+}
+
+def licenseeTarget = layout.buildDirectory.map { it.dir("generated/licenseeCustom") }
+tasks.register("generateCustomLicenseeKotlinCode", CodeGenerationTask) {
+    it.inputFile.set(
+            project(":app").tasks.named("licenseeAndroidDebug")
+                    .flatMap { it.outputDir.file("artifacts.json") }
+    )
+    it.outputDirectory.set(licenseeTarget)
+    it.packageName.set("example.generated.app_rules.from.kotlin.library")
+}
+
+sourceSets.named("main") {
+    kotlin {
+        srcDir(licenseeTarget)
+    }
+}
+
+tasks.named("compileKotlin") {
+    dependsOn("generateCustomLicenseeKotlinCode")
 }
 
 tasks.withType(Test).configureEach {

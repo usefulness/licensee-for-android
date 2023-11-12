@@ -13,7 +13,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-public abstract class AssetCopyTask : DefaultTask() {
+public abstract class LicenseeFileCopyTask : DefaultTask() {
     @get:OutputDirectory
     public abstract val outputDirectory: DirectoryProperty
 

@@ -1,6 +1,3 @@
-import app.cash.licensee.LicenseeTask
-import io.github.usefulness.licensee.CodeGenerationTask
-
 plugins {
     alias(libs.plugins.starter.library.android)
     alias(libs.plugins.app.cash.licensee)
@@ -13,9 +10,9 @@ licensee {
 
 licenseeForAndroid {
     enableKotlinCodeGeneration = true
-    enableAndroidAssetGeneration = false
-    generatedPackageName = "example.generated.from.library"
-    androidAssetFileName = "library_asset.json"
+    generatedPackageName = "example.generated.from.android.library"
+    enableResourceGeneration = true
+    resourceFileName = "ui_library_asset.json"
 }
 
 android {
@@ -27,6 +24,9 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    testOptions {
+        unitTests.includeAndroidResources true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
@@ -53,10 +53,13 @@ dependencies {
     implementation(libs.androidx.core.core.ktx)
 
     testRuntimeOnly(libs.junit.platform.launcher)
-    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.vintage.engine)
 
-    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit4)
     testImplementation(libs.assertj.core)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.org.robolectric.core)
+    testImplementation(libs.kotlinx.serialization.json.okio)
 
     ktlintRuleSet(libs.io.nlopez.compose)
 }

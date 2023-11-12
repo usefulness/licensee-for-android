@@ -7,6 +7,13 @@
 
 Turn raw [cashapp/licensee](https://github.com/cashapp/licensee) report into assets/Kotlin code that can be easily consumed from an Android app
 
+### Features
+- Access licenses report directly by a generated Kotlin code (accessible via static `io.github.usefulness.licensee.Licensee` object)
+- Read _licensee_ report copied to projects assets directory in runtime (via `assetManager.open("licensee_artifacts.json")`)
+
+![example](images/generated_code_dark.png#gh-dark-mode-only)
+![example](images/generated_code_light.png#gh-light-mode-only)
+
 ### Installation
 
 Available on:
@@ -23,12 +30,7 @@ plugins {
 }
 ```
 
-
-### Features
-- Access licenses report directly by a generated Kotlin code (accessible via static `io.github.usefulness.licensee.Licensee` object) 
-- Read _licensee_ report copied to projects assets directory in runtime (via `assetManager.open("licensee_artifacts.json")`)
-
-### Configuration
+#### Configuration
 
 Options can be configured in the `licenseeForAndroid` extension:
 
@@ -36,18 +38,69 @@ Options can be configured in the `licenseeForAndroid` extension:
 licenseeForAndroid {
     enableKotlinCodeGeneration = false
     generatedPackageName = "io.github.usefulness.licensee"
-    enableAndroidAssetGeneration = true
-    androidAssetFileName = "licensee_artifacts.json"
+    enableResourceGeneration = false
+    resourceFileName = "licensee_artifacts.json"
     singularVariantName = null
 }
 ```
 
-- `enableKotlinCodeGeneration` - Generates a static list of open source assets 
-- `generatedPackageName` - Generate Kotlin code under given package 
-- `enableAndroidAssetGeneration` - Enable asset generation. Will copy licensee report to android asset directory making it available as `androidAssetFileName` 
-- `androidAssetFileName` - The name of the asset file the licensee report gets copied to. 
-- `singularVariantName` - The name of the build variant that all variants will use to have always the same licensed, regardless of app variant. (i.e. "productionRelease")
+- `enableKotlinCodeGeneration` - Enables generating a static list of open source assets. 
+- `generatedPackageName` - Generate kotlin code under given package 
+- `enableResourceGeneration` - Enables copying _licensee_ report to asset(Android)/resource(JVM) directory, making it available under 'resourceFileName' name. 
+- `resourceFileName` - The name of the asset/resource file the licensee report gets copied to. 
+- `singularVariantName` - The name of the build variant that all variants will use to have always the same licensed, regardless of app variant. (i.e. `"paidRelease"`)
 
+### Common recipes
+
+#### Generate licensee information from any module
+
+```groovy
+plugins {
+    id("com.android.application") // or `com.android.library`
+    id("app.cash.licensee")
+    id("io.github.usefulness.licensee-for-android")
+}
+
+licensee {
+    allow("Apache-2.0")
+}
+
+licenseeForAndroid {
+    enableKotlinCodeGeneration = true
+    enableResourceGeneration = true
+}
+```
+#### Generate Kotlin code in Kotlin-only module using licensee output from a different module
+
+```groovy
+plugins {
+    id("org.jetbrains.kotlin.jvm") // or any other module type
+    id("io.github.usefulness.licensee-for-android") apply(false) // do not generate licensee information for _this_ module
+}
+
+// Register custom, source-generating task, use `:app`'s `productionRelease` variant
+def licenseeTarget = layout.buildDirectory.map { it.dir("generated/licensee") }
+tasks.register("generateLicenseeKotlinCode", CodeGenerationTask) {
+    it.inputFile.set(
+            project(":app").tasks.named("licenseeAndroidProductionRelease")
+                    .flatMap { it.outputDir.file("artifacts.json") }
+    )
+    it.outputDirectory.set(licenseeTarget)
+    it.packageName.set("io.github.usefulness.licensee")
+}
+
+// Make sources discoverable in IDE (https://youtrack.jetbrains.com/issue/KT-45161)
+sourceSets.named("main") {
+    kotlin {
+        srcDir(licenseeTarget)
+    }
+}
+
+// Make them run on every compilation
+tasks.named("compileKotlin") {
+    dependsOn("generateCustomLicenseeKotlinCode")
+}
+```
 
 ### Credits
 Huge thanks to [premex-ab/gross](https://github.com/premex-ab/gross) which this plugin forked from.   
