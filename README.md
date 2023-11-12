@@ -98,7 +98,7 @@ sourceSets.named("main") {
 
 // Make them run on every compilation
 tasks.named("compileKotlin") {
-    dependsOn("generateCustomLicenseeKotlinCode")
+    dependsOn("generateLicenseeKotlinCode")
 }
 ```
 
