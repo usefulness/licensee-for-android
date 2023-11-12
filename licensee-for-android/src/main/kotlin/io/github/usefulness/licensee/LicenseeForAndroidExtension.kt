@@ -3,11 +3,12 @@ package io.github.usefulness.licensee
 import org.gradle.api.Incubating
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
 
 public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
 
     /**
-     * Generates a static list of open source assets
+     * Enables generating a static list of open source assets.
      */
     public val enableKotlinCodeGeneration: Property<Boolean> = objectFactory.property(default = false)
 
@@ -18,15 +19,14 @@ public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
     public val generatedPackageName: Property<String> = objectFactory.property(default = "io.github.usefulness.licensee")
 
     /**
-     * Enable asset generation. Will copy licensee report to
-     * android asset directory making it available as 'androidAssetFileName'
+     * Enables copying licensee report to asset(Android)/resource(JVM) directory, making it available under 'resourceFileName' name.
      */
-    public val enableAndroidAssetGeneration: Property<Boolean> = objectFactory.property(default = true)
+    public val enableResourceGeneration: Property<Boolean> = objectFactory.property(default = false)
 
     /**
-     * The name of the asset file the licensee report gets copied to.
+     * The name of the asset/resource file the licensee report gets copied to.
      */
-    public val androidAssetFileName: Property<String> = objectFactory.property(default = "licensee_artifacts.json")
+    public val resourceFileName: Property<String> = objectFactory.property(default = "licensee_artifacts.json")
 
     /**
      * The name of the build variant that all variants will use to have always the same licensed, regardless of app variant.
@@ -37,5 +37,9 @@ public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
 }
 
 internal inline fun <reified T> ObjectFactory.property(default: T? = null): Property<T> = property(T::class.java).apply {
+    convention(default)
+}
+
+internal inline fun <reified T> ObjectFactory.setProperty(default: Set<T>? = null): SetProperty<T> = setProperty(T::class.java).apply {
     convention(default)
 }
