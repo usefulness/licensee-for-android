@@ -17,6 +17,10 @@ tasks.withType(KotlinCompile).configureEach {
     kotlinOptions.jvmTarget = targetJavaVersion
 }
 
+dependencies {
+    implementation libs.jetbrains.dokka
+}
+
 gradlePlugin {
     plugins {
         publishingPlugin {
