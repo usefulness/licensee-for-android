@@ -1,9 +1,9 @@
 package io.github.usefulness.licensee
 
-import io.github.usefulness.licensee.core.Artifact
-import io.github.usefulness.licensee.core.Scm
-import io.github.usefulness.licensee.core.SpdxLicenses
-import io.github.usefulness.licensee.core.UnknownLicenses
+import io.github.usefulness.licensee.serialization.Artifact
+import io.github.usefulness.licensee.serialization.Scm
+import io.github.usefulness.licensee.serialization.SpdxLicenses
+import io.github.usefulness.licensee.serialization.UnknownLicenses
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

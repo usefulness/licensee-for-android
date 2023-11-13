@@ -1,4 +1,4 @@
-package io.github.usefulness.licensee.core
+package io.github.usefulness.licensee.serialization
 
 import java.io.ByteArrayOutputStream
 

@@ -1,6 +1,6 @@
 package se.premex.gross.ui
 
-import io.github.usefulness.licensee.core.Artifact
+import io.github.usefulness.licensee.Artifact
 
 sealed class State<T> {
     class Loading<T> : State<T>()
@@ -9,13 +9,3 @@ sealed class State<T> {
 }
 
 data class OssViewState(val viewState: State<List<Artifact>> = State.Loading())
-
-data class ViewArtifact(
-    val title: String,
-    val licenses: List<License>,
-)
-
-data class License(
-    val title: String,
-    val url: String,
-)

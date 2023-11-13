@@ -9,8 +9,8 @@
     <ID>FunctionNaming:LoadingView.kt$@Composable fun LoadingView(modifier: Modifier = Modifier, content: @Composable () -&gt; Unit = {})</ID>
     <ID>FunctionNaming:LoadingView.kt$@Preview @Composable private fun PreviewLoadingView()</ID>
     <ID>FunctionNaming:OssView.kt$@Composable fun CharacterHeader(initial: String, modifier: Modifier = Modifier)</ID>
-    <ID>FunctionNaming:OssView.kt$@Composable fun LicenseSelector(title: String, licenses: List&lt;License&gt;, close: () -&gt; Unit)</ID>
     <ID>FunctionNaming:OssView.kt$@Composable fun OssView(artifacts: List&lt;Artifact&gt;, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:OssView.kt$@Composable private fun LicenseSelector(title: String, licenses: List&lt;ViewLicense&gt;, close: () -&gt; Unit)</ID>
     <ID>FunctionNaming:OssView.kt$@Preview(showSystemUi = true) @Composable private fun LicenseSelectorPreview()</ID>
     <ID>UnusedPrivateMember:ErrorView.kt$@Preview @Composable private fun ErrorViewPreview()</ID>
     <ID>UnusedPrivateMember:LoadingView.kt$@Preview @Composable private fun PreviewLoadingView()</ID>

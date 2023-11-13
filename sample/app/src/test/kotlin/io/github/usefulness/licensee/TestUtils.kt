@@ -17,7 +17,7 @@ internal fun <T> checkLoadedArtifacts(artifacts: List<T>, isViewPager2Dependency
                 version = "1.0.0",
                 name = "AndroidX Widget ViewPager2",
                 spdxLicenses = listOf(
-                    SpdxLicenses(
+                    SpdxLicense(
                         identifier = "Apache-2.0",
                         name = "Apache License 2.0",
                         url = "https://www.apache.org/licenses/LICENSE-2.0",

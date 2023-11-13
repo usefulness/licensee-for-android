@@ -2,8 +2,8 @@ package io.github.usefulness.licensee
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import example.generated.from.android.library.Licensee
-import io.github.usefulness.licensee.core.LicenseeParser
+import example.generated.from.kotlin.library.LicenseeForAndroid
+import io.github.usefulness.licensee.serialization.LicenseeParser
 import okio.buffer
 import okio.source
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +16,7 @@ class LibraryIntegrationTest {
 
     @Test
     fun checkGeneratedCode() {
-        assertThat(Licensee.artifacts).isNotEmpty()
+        assertThat(LicenseeForAndroid.artifacts).isNotEmpty()
     }
 
     @Test

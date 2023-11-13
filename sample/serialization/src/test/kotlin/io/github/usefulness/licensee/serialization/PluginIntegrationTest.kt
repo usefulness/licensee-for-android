@@ -1,8 +1,8 @@
-package io.github.usefulness.licensee.core
+package io.github.usefulness.licensee.serialization
 
-import example.generated.from.kotlin.library.Licensee as LibraryLicensee
+import example.generated.from.kotlin.library.LicenseeForAndroid as LibraryLicensee
 import org.junit.jupiter.api.Test
-import example.generated.app_rules.from.kotlin.library.Licensee as AppLicensee
+import example.generated.app_rules.from.kotlin.library.LicenseeForAndroid as AppLicensee
 import org.assertj.core.api.Assertions.assertThat
 
 class PluginIntegrationTest {
