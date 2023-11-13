@@ -8,7 +8,7 @@
 Turn raw [cashapp/licensee](https://github.com/cashapp/licensee) report into assets/Kotlin code that can be easily consumed from an Android app
 
 ### Features
-- Access licenses report directly by a generated Kotlin code (accessible via static `io.github.usefulness.licensee.Licensee` object)
+- Access licenses report directly by a generated Kotlin code (accessible via static `io.github.usefulness.licensee.LicenseeForAndroid` object)
 - Read _licensee_ report copied to projects assets directory in runtime (via `assetManager.open("licensee_artifacts.json")`)
 
 ![example](images/generated_code_dark.png#gh-dark-mode-only)
@@ -119,7 +119,7 @@ licenseeForAndroid {
     enableKotlinCodeGeneration = true
 }
 ```
-\+ provide `LicenseeForAndroid` object as `Licensee` interface
+\+ provide `LicenseeForAndroid` object as `Licensee` interface using your DI framework
 
 `consumer/build.gradle`:
 ```groovy
