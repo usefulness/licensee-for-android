@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.drewhamilton.poko)
     id("com.starter.publishing")
 }
-
 description = "core library for io.github.usefulness.licensee-for-android gradle plugin. Exposes shareable classes and interfaces, useful in multi-module projects"
 
 kotlin {

@@ -77,15 +77,17 @@ class PublishingPlugin : Plugin<Project> {
             }
 
             extensions.configure<PublishingExtension> {
-                if(!pluginManager.hasPlugin("com.gradle.plugin-publish")) {
+                if (!pluginManager.hasPlugin("com.gradle.plugin-publish")) {
                     publications.register("mavenJava", MavenPublication::class.java) { publication ->
                         publication.from(components.getByName("java"))
                     }
                 }
                 publications.configureEach { publication ->
                     (publication as? MavenPublication)?.pom { pom ->
-                        pom.name.set("${project.group}:${project.name}")
-                        pom.description.set(project.description)
+                        afterEvaluate {
+                            pom.name.set("${project.group}:${project.name}")
+                            pom.description.set(project.description)
+                        }
                         pom.url.set("https://github.com/usefulness/licensee-for-android")
                         pom.licenses { licenses ->
                             licenses.license { license ->
@@ -116,6 +118,4 @@ class PublishingPlugin : Plugin<Project> {
     }
 }
 
-private fun Project.findConfig(key: String): String {
-    return findProperty(key)?.toString() ?: System.getenv(key) ?: ""
-}
+private fun Project.findConfig(key: String): String = findProperty(key)?.toString() ?: System.getenv(key) ?: ""
