@@ -77,6 +77,11 @@ class PublishingPlugin : Plugin<Project> {
             }
 
             extensions.configure<PublishingExtension> {
+                if(!pluginManager.hasPlugin("com.gradle.plugin-publish")) {
+                    publications.register("mavenJava", MavenPublication::class.java) { publication ->
+                        publication.from(components.getByName("java"))
+                    }
+                }
                 publications.configureEach { publication ->
                     (publication as? MavenPublication)?.pom { pom ->
                         pom.name.set("${project.group}:${project.name}")

@@ -45,7 +45,7 @@ description = "A plugin that generates a list of open source licenses you depend
 
 gradlePlugin {
     plugins {
-        create("gross") {
+        register("licenseeForAndroid") {
             id = "io.github.usefulness.licensee-for-android"
             displayName = "`cashapp/licensee` helper for Android"
             description = project.description
