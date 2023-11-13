@@ -14,7 +14,7 @@ class PluginIntegrationTest {
     @Test
     fun checkGeneratedCode() {
         checkLoadedArtifacts(
-            artifacts = Licensee.artifacts,
+            artifacts = LicenseeForAndroid.artifacts,
             isViewPager2Dependency = { groupId == "androidx.viewpager2" && artifactId == "viewpager2" },
         )
     }

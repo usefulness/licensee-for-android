@@ -1,7 +1,6 @@
 import org.gradle.api.initialization.resolve.RepositoriesMode
 
 pluginManagement {
-    includeBuild("..")
     repositories {
         google {
             content {
@@ -32,11 +31,16 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
-        mavenCentral()
+        mavenCentral {
+            content {
+                excludeModule("io.github.usefulness", "lincensee-for-android-core")
+            }
+        }
     }
 }
 rootProject.name = "io.github.usefulness.sample"
 
-include(":core")
+includeBuild("..")
+include(':serialization')
 include("app")
 include(":ui")

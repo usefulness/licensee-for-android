@@ -2,10 +2,11 @@ package io.github.usefulness.licensee
 
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
-import io.github.usefulness.licensee.core.Artifact
+import io.github.usefulness.licensee.serialization.Artifact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.okio.decodeFromBufferedSource
@@ -39,42 +40,27 @@ public abstract class CodeGenerationTask : DefaultTask() {
     @TaskAction
     @ExperimentalSerializationApi
     public fun action() {
-        val packageName = packageName.get()
-        val licenseeTypesGenerator = LicenseeTypesGenerator(packageName)
-
-        FileSpec.builder(packageName, "Artifact")
-            .addType(licenseeTypesGenerator.spdxLicensesTypeSpec)
-            .addType(licenseeTypesGenerator.scmTypeSpec)
-            .addType(licenseeTypesGenerator.unknownLicensesTypeSpec)
-            .addType(licenseeTypesGenerator.artifactTypeSpec)
-            .build().writeTo(outputDirectory.asFile.get())
-
         val artifacts = Json.decodeFromBufferedSource<List<Artifact>>(inputFile.asFile.get().source().buffer())
-
-        val artifactCodeGenerator = ArtifactCodeGenerator(
-            packageName = packageName,
-            spdxLicensesTypeSpec = licenseeTypesGenerator.spdxLicensesTypeSpec,
-            scmTypeSpec = licenseeTypesGenerator.scmTypeSpec,
-            unknownLicensesTypeSpec = licenseeTypesGenerator.unknownLicensesTypeSpec,
-        )
 
         val artifactList = CodeBlock.builder().apply {
             addStatement("%M(", MemberName("kotlin.collections", "listOf"))
             artifacts.forEach { artifact ->
-                add(artifactCodeGenerator.artifactCodeBlock(artifact))
+                add(ArtifactCodeGenerator.artifactCodeBlock(artifact))
             }
             addStatement(")")
         }.build()
 
-        val grossType = TypeSpec.objectBuilder("Licensee")
+        val licenseeType = TypeSpec.objectBuilder("LicenseeForAndroid")
+            .addSuperinterface(ArtifactCodeGenerator.entrypointType)
             .addProperty(
-                PropertySpec.builder("artifacts", licenseeTypesGenerator.artifactListType)
+                PropertySpec.builder("artifacts", ArtifactCodeGenerator.artifactListType)
+                    .addModifiers(KModifier.OVERRIDE)
                     .initializer(artifactList).build(),
             )
             .build()
 
-        FileSpec.builder(packageName, "Licensee")
-            .addType(grossType)
+        FileSpec.builder(packageName.get(), "LicenseeForAndroid")
+            .addType(licenseeType)
             .build().writeTo(outputDirectory.asFile.get())
     }
 }

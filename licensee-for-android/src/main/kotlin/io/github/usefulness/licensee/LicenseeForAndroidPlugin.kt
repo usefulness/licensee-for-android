@@ -1,6 +1,7 @@
 package io.github.usefulness.licensee
 
 import com.android.build.api.variant.AndroidComponentsExtension
+import io.github.usefulness.licensee.generated.LicenseeForAndroidBuildConfig
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.reporting.ReportingExtension
@@ -79,6 +80,10 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
                 )
 
                 codeGenerationTask.configure { it.dependsOn(licenseeTaskName) }
+
+                if (extension.automaticCoreDependencyManagement.get()) {
+                    addCoreDependency()
+                }
             }
         }
     }
@@ -124,6 +129,17 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
             }
 
             codeGenerationTask.configure { it.dependsOn(licenseeTaskName) }
+
+            if (extension.automaticCoreDependencyManagement.get()) {
+                addCoreDependency()
+            }
         }
+    }
+
+    private fun Project.addCoreDependency() {
+        dependencies.add(
+            "implementation",
+            "io.github.usefulness:licensee-for-android-core:${LicenseeForAndroidBuildConfig.VERSION}",
+        )
     }
 }

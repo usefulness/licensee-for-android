@@ -1,0 +1,30 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    alias(libs.plugins.starter.library.kotlin)
+    alias(libs.plugins.kotlinx.binarycompatibility)
+    alias(libs.plugins.drewhamilton.poko)
+    id("com.starter.publishing")
+}
+
+kotlin {
+    explicitApi()
+}
+
+def targetVersion = JavaVersion.VERSION_1_8
+tasks.withType(KotlinCompile).configureEach {
+    it.kotlinOptions.jvmTarget = targetVersion.toString()
+}
+tasks.withType(JavaCompile).configureEach {
+    it.options.release.set(targetVersion.majorVersion.toInteger())
+}
+
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        apiVersion = "1.8"
+        languageVersion = "1.8"
+    }
+}
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}

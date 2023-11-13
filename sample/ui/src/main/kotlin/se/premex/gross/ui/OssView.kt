@@ -32,20 +32,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.githhub.usefulness.licensee.android.ui.R
-import io.github.usefulness.licensee.core.Artifact
+import io.github.usefulness.licensee.Artifact
 
 @Composable
 fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
     val viewData = artifacts.map { artifact ->
-        val licenses =
-            artifact.spdxLicenses.spdxToLicenses() + artifact.unknownLicenses.unknownToLicenses()
+        val spdxViewLicenses = artifact.spdxLicenses.map { ViewLicense(title = it.name, url = it.url) }
+        val unknown = artifact.unknownLicenses.map { ViewLicense(title = it.name, url = it.url) }
 
         val nameOrPackage = ("${artifact.name}\n(${artifact.groupId}:${artifact.artifactId}:${artifact.version})".trim())
 
-        ViewArtifact(nameOrPackage, licenses)
-    }.sortedBy { it.title }
+        ViewArtifact(
+            title = nameOrPackage,
+            licenses = spdxViewLicenses + unknown,
+        )
+    }.sortedBy { (nameOrPackage, _) -> nameOrPackage }
 
-    val licenses: SnapshotStateList<License> = remember { mutableStateListOf() }
+    val licenses: SnapshotStateList<ViewLicense> = remember { mutableStateListOf() }
     var alertTitle by remember { mutableStateOf("") }
     LicenseSelector(alertTitle, licenses) {
         licenses.clear()
@@ -93,6 +96,15 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
     }
 }
 
+private data class ViewArtifact(
+    val title: String,
+    val licenses: List<ViewLicense>,
+)
+private data class ViewLicense(
+    val title: String,
+    val url: String,
+)
+
 @Composable
 fun CharacterHeader(initial: String, modifier: Modifier = Modifier) {
     Text(
@@ -110,13 +122,13 @@ fun CharacterHeader(initial: String, modifier: Modifier = Modifier) {
 @Composable
 private fun LicenseSelectorPreview() {
     Column(Modifier.fillMaxSize()) {
-        LicenseSelector("Licenses", listOf(License("aaa", "http://google.se"))) {
+        LicenseSelector("Licenses", listOf(ViewLicense("aaa", "http://google.se"))) {
         }
     }
 }
 
 @Composable
-fun LicenseSelector(title: String, licenses: List<License>, close: () -> Unit) {
+private fun LicenseSelector(title: String, licenses: List<ViewLicense>, close: () -> Unit) {
     val uriHandler = LocalUriHandler.current
 
     if (licenses.isNotEmpty()) {

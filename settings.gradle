@@ -23,4 +23,5 @@ dependencyResolutionManagement {
 rootProject.name = "io.github.usefulness"
 
 include("licensee-for-android")
+include("licensee-for-android-core")
 includeBuild("gradle/plugins")
