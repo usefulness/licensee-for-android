@@ -34,6 +34,12 @@ public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
      */
     @Incubating
     public val singularVariantName: Property<String> = objectFactory.property(default = null)
+
+    /**
+     * Automatically add `licensee-for-android-core` core artifact as an implementation dependency for the generated code.
+     * The idea is to use the core artifact in a consumer project, and wire generated implementation via DI mechanism
+     */
+    public val automaticCoreDependencyManagement: Property<Boolean> = objectFactory.property(default = true)
 }
 
 internal inline fun <reified T> ObjectFactory.property(default: T? = null): Property<T> = property(T::class.java).apply {

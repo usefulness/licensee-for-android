@@ -11,6 +11,14 @@ kotlin {
     explicitApi()
 }
 
+def targetVersion = JavaVersion.VERSION_1_8
+tasks.withType(KotlinCompile).configureEach {
+    it.kotlinOptions.jvmTarget = targetVersion.toString()
+}
+tasks.withType(JavaCompile).configureEach {
+    it.options.release.set(targetVersion.majorVersion.toInteger())
+}
+
 tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         apiVersion = "1.8"

@@ -9,20 +9,9 @@ import org.junit.jupiter.api.Test
 
 class ArtifactGeneratorTest {
 
-    private val packageName = "io.github.usefulness.licensee"
-
-    private val licenseeTypesGenerator = LicenseeTypesGenerator(packageName = packageName)
-
-    private val artifactCodeGenerator = ArtifactCodeGenerator(
-        packageName = packageName,
-        licenseeTypesGenerator.unknownLicensesTypeSpec,
-        licenseeTypesGenerator.spdxLicensesTypeSpec,
-        licenseeTypesGenerator.scmTypeSpec,
-    )
-
     @Test
     fun `test all nullables are null`() {
-        val artifactCodeBlock = artifactCodeGenerator.artifactCodeBlock(
+        val artifactCodeBlock = ArtifactCodeGenerator.artifactCodeBlock(
             Artifact(
                 groupId = "testGroup",
                 artifactId = "testArtifact",
@@ -36,7 +25,7 @@ class ArtifactGeneratorTest {
 
         // language
         val expected = """
-            Artifact(
+            io.github.usefulness.licensee.Artifact(
               groupId = "testGroup",
               artifactId = "testArtifact",
               version = "testVersion",
@@ -52,7 +41,7 @@ class ArtifactGeneratorTest {
 
     @Test
     fun `test all lists are empty`() {
-        val artifactCodeBlock = artifactCodeGenerator.artifactCodeBlock(
+        val artifactCodeBlock = ArtifactCodeGenerator.artifactCodeBlock(
             Artifact(
                 groupId = "testGroup",
                 artifactId = "testArtifact",
@@ -64,13 +53,13 @@ class ArtifactGeneratorTest {
             ),
         )
         val expected = """
-            Artifact(
+            io.github.usefulness.licensee.Artifact(
               groupId = "testGroup",
               artifactId = "testArtifact",
               version = "testVersion",
               name = "testName",
               spdxLicenses = kotlin.collections.emptyList(),
-              scm = io.github.usefulness.licensee.SpdxLicenses(url = "testUrl"),
+              scm = io.github.usefulness.licensee.Scm(url = "testUrl"),
               unknownLicenses = kotlin.collections.emptyList(),
             ),
 
@@ -80,7 +69,7 @@ class ArtifactGeneratorTest {
 
     @Test
     fun `test all lists have items`() {
-        val artifactCodeBlock = artifactCodeGenerator.artifactCodeBlock(
+        val artifactCodeBlock = ArtifactCodeGenerator.artifactCodeBlock(
             Artifact(
                 groupId = "testGroup",
                 artifactId = "testArtifact",
@@ -98,30 +87,30 @@ class ArtifactGeneratorTest {
             ),
         )
         val expected = """
-            Artifact(
+            io.github.usefulness.licensee.Artifact(
                 groupId = "testGroup",
                 artifactId = "testArtifact",
                 version = "testVersion",
                 name = "testName",
                 spdxLicenses = kotlin.collections.listOf(
-                  io.github.usefulness.licensee.UnknownLicenses(
+                  io.github.usefulness.licensee.SpdxLicense(
                     identifier = "spdxId1",
                     name = "spdxName1",
                     url = "spdxUrl1",
                   ),
-                  io.github.usefulness.licensee.UnknownLicenses(
+                  io.github.usefulness.licensee.SpdxLicense(
                     identifier = "spdxId2",
                     name = "spdxName2",
                     url = "spdxUrl2",
                   ),
                 ),
-                scm = io.github.usefulness.licensee.SpdxLicenses(url = "testUrl"),
+                scm = io.github.usefulness.licensee.Scm(url = "testUrl"),
                 unknownLicenses = kotlin.collections.listOf(
-                  io.github.usefulness.licensee.Scm(
+                  io.github.usefulness.licensee.UnknownLicense(
                     name = "unknown1",
                     url = "unknown1",
                   ),
-                  io.github.usefulness.licensee.Scm(
+                  io.github.usefulness.licensee.UnknownLicense(
                     name = "unknown2",
                     url = "unknown2",
                   ),

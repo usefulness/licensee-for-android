@@ -2,21 +2,20 @@ package io.github.usefulness.licensee
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.MemberName
-import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.withIndent
-import io.github.usefulness.licensee.core.Artifact
+import io.github.usefulness.licensee.serialization.Artifact
 
-internal class ArtifactCodeGenerator(
-    private val packageName: String,
-    private val spdxLicensesTypeSpec: TypeSpec,
-    private val scmTypeSpec: TypeSpec,
-    private val unknownLicensesTypeSpec: TypeSpec,
-) {
+internal object ArtifactCodeGenerator {
+
+    val entrypointType = coreClassName("Licensee")
+    val artifactListType = LIST.parameterizedBy(coreClassName("Artifact"))
 
     fun artifactCodeBlock(artifact: Artifact) = CodeBlock.builder()
         .withIndent {
-            addStatement("Artifact(")
+            addStatement("%T(", ARTIFACT_KCLASS_NAME)
             withIndent {
                 addStatement("groupId = %S,", artifact.groupId)
                 addStatement("artifactId = %S,", artifact.artifactId)
@@ -29,7 +28,7 @@ internal class ArtifactCodeGenerator(
                     addStatement("spdxLicenses = %M(", MemberName("kotlin.collections", "listOf"))
                     withIndent {
                         artifact.spdxLicenses.forEach { license ->
-                            addStatement("%T(", ClassName(packageName, spdxLicensesTypeSpec.name!!))
+                            addStatement("%T(", SPDX_LICENSE_KCLASS_NAME)
                             withIndent {
                                 addStatement("identifier = %S,", license.identifier)
                                 addStatement("name = %S,", license.name)
@@ -44,7 +43,7 @@ internal class ArtifactCodeGenerator(
                 if (artifact.scm == null) {
                     addStatement("scm = null,")
                 } else {
-                    addStatement("scm = %T(url = %S),", ClassName(packageName, scmTypeSpec.name!!), artifact.scm.url)
+                    addStatement("scm = %T(url = %S),", SCM_KCLASS_NAME, artifact.scm.url)
                 }
 
                 if (artifact.unknownLicenses.isNullOrEmpty()) {
@@ -53,7 +52,7 @@ internal class ArtifactCodeGenerator(
                     addStatement("unknownLicenses = %M(", MemberName("kotlin.collections", "listOf"))
                     withIndent {
                         artifact.unknownLicenses.forEach { license ->
-                            addStatement("%T(", ClassName(packageName, unknownLicensesTypeSpec.name!!))
+                            addStatement("%T(", UNKNOWN_LICENSE_KCLASS_NAME)
                             withIndent {
                                 addStatement("name = %S,", license.name)
                                 addStatement("url = %S,", license.url)
@@ -67,4 +66,11 @@ internal class ArtifactCodeGenerator(
             addStatement("),")
         }
         .build()
+
+    private fun coreClassName(name: String) = ClassName("io.github.usefulness.licensee", name)
+
+    private val SPDX_LICENSE_KCLASS_NAME = coreClassName("SpdxLicense")
+    private val SCM_KCLASS_NAME = coreClassName("Scm")
+    private val UNKNOWN_LICENSE_KCLASS_NAME = coreClassName("UnknownLicense")
+    private val ARTIFACT_KCLASS_NAME = coreClassName("Artifact")
 }
