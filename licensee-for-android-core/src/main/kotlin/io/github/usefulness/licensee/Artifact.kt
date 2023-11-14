@@ -1,7 +1,5 @@
 package io.github.usefulness.licensee
 
-import dev.drewhamilton.poko.Poko
-
 @Poko
 public class Artifact(
     public val groupId: String,

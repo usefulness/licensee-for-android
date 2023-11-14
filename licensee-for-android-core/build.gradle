@@ -12,6 +12,10 @@ kotlin {
     explicitApi()
 }
 
+poko {
+    pokoAnnotation.set "io.github.usefulness.licensee.Poko"
+}
+
 def targetVersion = JavaVersion.VERSION_1_8
 tasks.withType(KotlinCompile).configureEach {
     it.kotlinOptions.jvmTarget = targetVersion.toString()
