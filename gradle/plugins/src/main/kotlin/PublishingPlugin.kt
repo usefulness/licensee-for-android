@@ -91,7 +91,7 @@ class PublishingPlugin : Plugin<Project> {
                         pom.url.set("https://github.com/usefulness/licensee-for-android")
                         pom.licenses { licenses ->
                             licenses.license { license ->
-                                license.name.set("The MIT License")
+                                license.name.set("MIT")
                                 license.url.set("https://github.com/usefulness/licensee-for-android/blob/master/LICENSE")
                             }
                         }
