@@ -4,12 +4,17 @@ plugins {
     alias(libs.plugins.starter.library.kotlin)
     alias(libs.plugins.kotlinx.binarycompatibility)
     alias(libs.plugins.drewhamilton.poko)
+    id("java-test-fixtures")
     id("com.starter.publishing")
 }
 description = "core library for io.github.usefulness.licensee-for-android gradle plugin. Exposes shareable classes and interfaces, useful in multi-module projects"
 
 kotlin {
     explicitApi()
+}
+
+poko {
+    pokoAnnotation.set "io.github.usefulness.licensee.Poko"
 }
 
 def targetVersion = JavaVersion.VERSION_1_8
