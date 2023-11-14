@@ -127,7 +127,9 @@ plugins {
     id("org.jetbrains.kotlin.jvm") // or any other module type
 }
 
-dependencies 
+dependencies {
+    implementation("io.github.usefulness:licensee-for-android-core:${{ version }")
+}
 ```
 \+ inject `Licensee` interface
 
