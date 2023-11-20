@@ -42,7 +42,7 @@ tasks.withType(Test).configureEach {
 }
 
 dependencies {
-    api(libs.kotlinx.serialization.json)
+    api(libs.kotlinx.serialization.json.core)
     implementation(libs.kotlinx.serialization.json.okio)
     api(libs.com.squareup.okio)
 

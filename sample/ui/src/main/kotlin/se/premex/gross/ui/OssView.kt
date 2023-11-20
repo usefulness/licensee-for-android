@@ -19,11 +19,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -36,22 +34,12 @@ import io.github.usefulness.licensee.Artifact
 
 @Composable
 fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
-    val viewData = artifacts.map { artifact ->
-        val spdxViewLicenses = artifact.spdxLicenses.map { ViewLicense(title = it.name, url = it.url) }
-        val unknown = artifact.unknownLicenses.map { ViewLicense(title = it.name, url = it.url) }
-
-        val nameOrPackage = ("${artifact.name}\n(${artifact.groupId}:${artifact.artifactId}:${artifact.version})".trim())
-
-        ViewArtifact(
-            title = nameOrPackage,
-            licenses = spdxViewLicenses + unknown,
+    var visibleDialog by remember { mutableStateOf<LicensesDialogData?>(value = null) }
+    visibleDialog?.let { dialog ->
+        LicenseSelector(
+            dialogData = dialog,
+            onDismissRequest = { visibleDialog = null },
         )
-    }.sortedBy { (nameOrPackage, _) -> nameOrPackage }
-
-    val licenses: SnapshotStateList<ViewLicense> = remember { mutableStateListOf() }
-    var alertTitle by remember { mutableStateOf("") }
-    LicenseSelector(alertTitle, licenses) {
-        licenses.clear()
     }
 
     LazyColumn(
@@ -59,7 +47,7 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        item {
+        item(key = "header") {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -75,20 +63,37 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
             }
         }
 
-        val grouped: Map<String, List<ViewArtifact>> =
-            viewData.groupBy { it.title[0].uppercaseChar().toString() }
+        val viewData = artifacts.map { artifact ->
+            val spdxViewLicenses = artifact.spdxLicenses.map { ViewLicense(title = it.name, url = it.url) }
+            val unknown = artifact.unknownLicenses.map { ViewLicense(title = it.name, url = it.url) }
+
+            val nameOrPackage = ("${artifact.name}\n(${artifact.groupId}:${artifact.artifactId}:${artifact.version})".trim())
+
+            ViewArtifact(
+                key = "${artifact.groupId}:${artifact.artifactId}",
+                title = nameOrPackage,
+                licenses = spdxViewLicenses + unknown,
+            )
+        }
+            .sortedBy { (nameOrPackage, _) -> nameOrPackage }
+        val grouped = viewData.groupBy { it.title[0].uppercaseChar().toString() }
         grouped.forEach { (title, list) ->
             stickyHeader {
                 CharacterHeader(title)
             }
-            items(list) { artifact ->
+            items(
+                items = list,
+                key = { it.key },
+            ) { artifact ->
                 ListItem(
                     headlineContent = {
                         Text(text = artifact.title)
                     },
                     modifier = Modifier.clickable {
-                        alertTitle = artifact.title
-                        licenses.addAll(artifact.licenses)
+                        visibleDialog = LicensesDialogData(
+                            title = artifact.title,
+                            licenses = artifact.licenses,
+                        )
                     },
                 )
             }
@@ -96,10 +101,17 @@ fun OssView(artifacts: List<Artifact>, modifier: Modifier = Modifier) {
     }
 }
 
-private data class ViewArtifact(
+private data class LicensesDialogData(
     val title: String,
     val licenses: List<ViewLicense>,
 )
+
+private data class ViewArtifact(
+    val key: String,
+    val title: String,
+    val licenses: List<ViewLicense>,
+)
+
 private data class ViewLicense(
     val title: String,
     val url: String,
@@ -122,50 +134,51 @@ fun CharacterHeader(initial: String, modifier: Modifier = Modifier) {
 @Composable
 private fun LicenseSelectorPreview() {
     Column(Modifier.fillMaxSize()) {
-        LicenseSelector("Licenses", listOf(ViewLicense("aaa", "http://google.se"))) {
-        }
+        LicenseSelector(
+            dialogData = LicensesDialogData(
+                title = "Foo Library",
+                licenses = listOf(ViewLicense(title = "Foo License", url = "http://google.se")),
+            ),
+            onDismissRequest = { },
+        )
     }
 }
 
 @Composable
-private fun LicenseSelector(title: String, licenses: List<ViewLicense>, close: () -> Unit) {
+private fun LicenseSelector(dialogData: LicensesDialogData, onDismissRequest: () -> Unit) {
     val uriHandler = LocalUriHandler.current
 
-    if (licenses.isNotEmpty()) {
-        AlertDialog(
-            onDismissRequest = {
-                close()
-            },
-            title = {
-                Text(text = title)
-            },
-            text = {
-                Column {
-                    licenses.forEach { license ->
-                        ListItem(
-                            headlineContent = {
-                                Text(text = license.title)
-                            },
-                            leadingContent = {
-                                Icon(
-                                    imageVector = Icons.Filled.Link,
-                                    contentDescription = null,
-                                )
-                            },
-                            modifier = Modifier.clickable {
-                                uriHandler.openUri(license.url)
-                            },
-                        )
-                    }
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = {
+            Text(text = dialogData.title)
+        },
+        text = {
+            Column {
+                dialogData.licenses.forEach { license ->
+                    ListItem(
+                        headlineContent = {
+                            Text(text = license.title)
+                        },
+                        leadingContent = {
+                            Icon(
+                                imageVector = Icons.Filled.Link,
+                                contentDescription = null,
+                            )
+                        },
+                        modifier = Modifier.clickable {
+                            uriHandler.openUri(license.url)
+                        },
+                    )
                 }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = close,
-                ) {
-                    Text(stringResource(id = R.string.close))
-                }
-            },
-        )
-    }
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = onDismissRequest,
+            ) {
+                Text(stringResource(id = R.string.close))
+            }
+        },
+    )
 }

@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     id("java-gradle-plugin")
@@ -15,7 +16,7 @@ dependencies {
     implementation(libs.com.squareup.kotlinpoet) {
         exclude(module: "kotlin-reflect")
     }
-    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.json.core)
     implementation(libs.kotlinx.serialization.json.okio)
     implementation(libs.com.squareup.okio)
 
@@ -32,9 +33,9 @@ kotlin {
 }
 
 tasks.withType(KotlinCompile).configureEach {
-    kotlinOptions {
-        apiVersion = "1.8"
-        languageVersion = "1.8"
+    compilerOptions {
+        apiVersion = KotlinVersion.KOTLIN_1_8
+        languageVersion = KotlinVersion.KOTLIN_1_8
     }
 }
 tasks.withType(Test).configureEach {
