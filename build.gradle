@@ -21,7 +21,7 @@ allprojects {
             }
         }
         kotlin {
-            jvmToolchain(21)
+            jvmToolchain(libs.versions.java.compilation.get().toInteger())
         }
     }
     pluginManager.withPlugin("java") {
