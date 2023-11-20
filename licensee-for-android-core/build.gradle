@@ -1,4 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.starter.library.kotlin)
@@ -19,16 +21,16 @@ poko {
 
 def targetVersion = JavaVersion.VERSION_1_8
 tasks.withType(KotlinCompile).configureEach {
-    it.kotlinOptions.jvmTarget = targetVersion.toString()
+    it.compilerOptions.jvmTarget = JvmTarget.@Companion.fromTarget(targetVersion.toString())
 }
 tasks.withType(JavaCompile).configureEach {
     it.options.release.set(targetVersion.majorVersion.toInteger())
 }
 
 tasks.withType(KotlinCompile).configureEach {
-    kotlinOptions {
-        apiVersion = "1.8"
-        languageVersion = "1.8"
+    compilerOptions {
+        apiVersion = KotlinVersion.KOTLIN_1_8
+        languageVersion = KotlinVersion.KOTLIN_1_8
     }
 }
 tasks.withType(Test).configureEach {
