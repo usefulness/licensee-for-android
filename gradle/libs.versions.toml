@@ -19,7 +19,7 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "maven-asser
 agp-gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "google-agp" }
 kotlin-gradle-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "maven-kotlin" }
 com-squareup-kotlinpoet = "com.squareup:kotlinpoet:1.15.1"
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
+kotlinx-serialization-json-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
 kotlinx-serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "maven-kotlin-serialization" }
 com-squareup-okio = "com.squareup.okio:okio:3.6.0"
 jetbrains-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "maven-dokka" }
