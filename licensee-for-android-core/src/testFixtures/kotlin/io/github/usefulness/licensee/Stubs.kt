@@ -1,7 +1,5 @@
 package io.github.usefulness.licensee
 
-class FakeLicensee(override val artifacts: List<Artifact>) : Licensee
-
 fun stubArtifact(
     groupId: String = "com.example",
     artifactId: String = "foo-bar",
