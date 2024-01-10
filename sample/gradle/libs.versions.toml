@@ -13,7 +13,7 @@ com-squareup-moshi = "1.15.0"
 compose-bom = "2023.10.01"
 core-ktx = "1.12.0"
 espresso-core = "3.5.1"
-lifecycle-runtime-ktx = "2.6.2"
+lifecycle-runtime-ktx = "2.7.0"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
