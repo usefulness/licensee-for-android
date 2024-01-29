@@ -12,7 +12,7 @@ pluginManagement {
         }
         gradlePluginPortal {
             content {
-                excludeModule("io.github.usefulness", "lincensee-for-android")
+                excludeModule("io.github.usefulness", "licensee-for-android")
             }
         }
     }
@@ -33,7 +33,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral {
             content {
-                excludeModule("io.github.usefulness", "lincensee-for-android-core")
+                excludeModule("io.github.usefulness", "licensee-for-android-core")
             }
         }
     }
