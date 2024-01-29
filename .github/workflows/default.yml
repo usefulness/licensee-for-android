@@ -35,7 +35,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - uses: gradle/wrapper-validation-action@v1
+      - uses: gradle/wrapper-validation-action@v2
 
       - uses: gradle/actions/setup-gradle@v3
 
