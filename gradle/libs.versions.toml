@@ -8,7 +8,7 @@ maven-kotlin-serialization = "1.6.2"
 maven-kotlin = "1.9.22"
 maven-junit = "5.10.1"
 maven-assertj = "3.25.2"
-maven-binarycompatiblity = "0.13.2"
+maven-binarycompatiblity = "0.14.0"
 maven-dokka = "1.9.10"
 maven-poko = "0.15.2"
 
