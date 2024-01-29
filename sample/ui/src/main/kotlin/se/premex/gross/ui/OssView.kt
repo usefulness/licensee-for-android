@@ -113,8 +113,8 @@ private data class ViewArtifact(
 )
 
 private data class ViewLicense(
-    val title: String,
-    val url: String,
+    val title: String?,
+    val url: String?,
 )
 
 @Composable
@@ -158,7 +158,7 @@ private fun LicenseSelector(dialogData: LicensesDialogData, onDismissRequest: ()
                 dialogData.licenses.forEach { license ->
                     ListItem(
                         headlineContent = {
-                            Text(text = license.title)
+                            license.title?.let { Text(text = it) }
                         },
                         leadingContent = {
                             Icon(
@@ -166,9 +166,11 @@ private fun LicenseSelector(dialogData: LicensesDialogData, onDismissRequest: ()
                                 contentDescription = null,
                             )
                         },
-                        modifier = Modifier.clickable {
-                            uriHandler.openUri(license.url)
-                        },
+                        modifier = license.url?.let { url ->
+                            Modifier.clickable {
+                                uriHandler.openUri(url)
+                            }
+                        } ?: Modifier,
                     )
                 }
             }

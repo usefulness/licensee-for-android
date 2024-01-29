@@ -43,8 +43,8 @@ fun stubMitLicense() = stubSpdxLicense(
 fun stubScm(url: String = "url") = Scm(url = url)
 
 fun stubUnknownLicense(
-    name: String = "Android Software Development Kit License",
-    url: String = "https://developer.android.com/studio/terms.html",
+    name: String? = "Android Software Development Kit License",
+    url: String? = "https://developer.android.com/studio/terms.html",
 ) = UnknownLicense(
     name = name,
     url = url,
