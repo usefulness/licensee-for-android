@@ -14,8 +14,8 @@ internal data class Scm(val url: String)
 
 @Serializable
 internal data class UnknownLicenses(
-    val name: String,
-    val url: String,
+    val name: String?,
+    val url: String?,
 )
 
 @Serializable

@@ -23,6 +23,6 @@ public class Scm(public val url: String)
 
 @Poko
 public class UnknownLicense(
-    public val name: String,
-    public val url: String,
+    public val name: String?,
+    public val url: String?,
 )
