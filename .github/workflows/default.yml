@@ -97,7 +97,6 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - uses: gradle/actions/setup-gradle@v3
-        continue-on-error: true
         with:
           build-root-directory: sample
           gradle-version: ${{ matrix.gradle }}
