@@ -2,7 +2,7 @@
 gradle-starter = "0.70.0"
 maven-kotlin-serialization = "1.6.2"
 maven-kotlin = "1.9.22"
-maven-junit = "5.10.1"
+maven-junit = "5.10.2"
 maven-junit4 = "4.13.2"
 maven-assertj = "3.25.2"
 activity-compose = "1.8.2"
