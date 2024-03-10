@@ -49,8 +49,8 @@ licenseeForAndroid {
 - `generatedPackageName` - Generate kotlin code under given package 
 - `enableResourceGeneration` - Enables copying _licensee_ report to asset(Android)/resource(JVM) directory, making it available under 'resourceFileName' name. 
 - `resourceFileName` - The name of the asset/resource file the licensee report gets copied to. 
-- `singularVariantName` - The name of the build variant that all variants will use to have always the same licensed, regardless of app variant. (i.e. `"paidRelease"`)
-- `automaticCoreDependencyManagement` - Automatically add `licensee-for-android-core` core artifact as an implementation dependency for the generated code. The idea is to use the core artifact in a consumer project, and wire generated implementation via DI mechanism
+- `singularVariantName` - The name of the build variant which all build variants will use, to show always the same licenses. (i.e. `"paidRelease"`)
+- `automaticCoreDependencyManagement` - Automatically add `licensee-for-android-core` core artifact as an implementation dependency for the generated code. The idea is to later use the same _core_ artifact within a consumer project, and wire generated implementation via DI mechanism
 
 ### Common recipes
 
