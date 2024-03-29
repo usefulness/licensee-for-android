@@ -2,7 +2,6 @@
 java-compilation = "21"
 gradle-starter = "0.71.0"
 gradle-pluginpublish = "1.2.1"
-gradle-doctor = "0.9.2"
 google-agp = "8.3.1"
 maven-kotlin-serialization = "1.6.3"
 maven-kotlin = "1.9.23"
@@ -34,4 +33,3 @@ gradle-pluginpublish = { id = "com.gradle.plugin-publish", version.ref = "gradle
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin" }
 kotlinx-binarycompatibility = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "maven-binarycompatiblity" }
 drewhamilton-poko = { id = "dev.drewhamilton.poko", version.ref = "maven-poko" }
-osacky-doctor = { id = "com.osacky.doctor", version.ref = "gradle-doctor" }
