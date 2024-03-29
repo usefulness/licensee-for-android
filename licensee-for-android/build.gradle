@@ -57,7 +57,7 @@ gradlePlugin {
 }
 
 final GENERATED_PACKAGE_NAME = "io.github.usefulness.licensee.generated"
-final GENERATED_BUILD_DIR = layout.buildDirectory.map { it.dir("generated/config/${GENERATED_PACKAGE_NAME.replace('.', '/')}")}
+final GENERATED_BUILD_DIR = layout.buildDirectory.map { it.dir("generated/config/${GENERATED_PACKAGE_NAME.replace('.', '/')}") }
 
 tasks.register("generateBuildConfig") {
     final version = project.version

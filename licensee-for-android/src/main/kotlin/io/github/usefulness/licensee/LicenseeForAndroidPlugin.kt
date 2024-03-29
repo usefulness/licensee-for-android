@@ -52,6 +52,7 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
                     "generate${sourceCapitalized}LicenseeResourceFor$targetCapitalized",
                     LicenseeFileCopyTask::class.java,
                 ) {
+                    it.dependsOn(licenseeTaskName)
                     it.inputFile.set(artifactsFile)
                     it.targetFileName.set(extension.resourceFileName)
                 }
@@ -60,8 +61,6 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
                     taskProvider = copyArtifactsTask,
                     wiredWith = LicenseeFileCopyTask::outputDirectory,
                 )
-
-                copyArtifactsTask.configure { it.dependsOn(licenseeTaskName) }
             }
 
             if (extension.enableKotlinCodeGeneration.get()) {
@@ -69,6 +68,7 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
                     "generate${sourceCapitalized}LicenseeKotlinCodeFor$targetCapitalized",
                     CodeGenerationTask::class.java,
                 ) {
+                    it.dependsOn(licenseeTaskName)
                     it.inputFile.set(artifactsFile)
                     it.packageName.set(extension.generatedPackageName)
                 }
@@ -78,8 +78,6 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
                     taskProvider = codeGenerationTask,
                     wiredWith = CodeGenerationTask::outputDirectory,
                 )
-
-                codeGenerationTask.configure { it.dependsOn(licenseeTaskName) }
 
                 if (extension.automaticCoreDependencyManagement.get()) {
                     addCoreDependency()
@@ -99,13 +97,12 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
             val targetDirectory = layout.buildDirectory.map { it.dir("generated").dir("licenseeResources") }
 
             val copyArtifactsTask = tasks.register("generateLicenseeResource", LicenseeFileCopyTask::class.java) {
+                it.dependsOn(licenseeTaskName)
                 it.inputFile.set(artifactsFile)
                 it.targetFileName.set(extension.resourceFileName)
                 it.outputDirectory.set(targetDirectory)
             }
             kotlinSourceSet.srcDir(targetDirectory)
-
-            copyArtifactsTask.configure { it.dependsOn(licenseeTaskName) }
 
             tasks.named("processResources") {
                 it.dependsOn(copyArtifactsTask)
@@ -115,6 +112,7 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
         if (extension.enableKotlinCodeGeneration.get()) {
             val targetDirectory = layout.buildDirectory.map { it.dir("generated").dir("licensee") }
             val codeGenerationTask = tasks.register("generateLicenseeKotlinCode", CodeGenerationTask::class.java) {
+                it.dependsOn(licenseeTaskName)
                 it.inputFile.set(artifactsFile)
                 it.packageName.set(extension.generatedPackageName)
                 it.outputDirectory.set(targetDirectory)
@@ -127,8 +125,6 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
             tasks.named("compileKotlin") {
                 it.dependsOn(codeGenerationTask)
             }
-
-            codeGenerationTask.configure { it.dependsOn(licenseeTaskName) }
 
             if (extension.automaticCoreDependencyManagement.get()) {
                 addCoreDependency()
