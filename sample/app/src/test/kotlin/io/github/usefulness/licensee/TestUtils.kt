@@ -10,6 +10,7 @@ internal fun <T> checkLoadedArtifacts(artifacts: List<T>, isViewPager2Dependency
     @Suppress("KotlinConstantConditions")
     when (BuildConfig.BUILD_TYPE) {
         "release" -> assertThat(viewPagers).isEmpty()
+
         "debug" -> assertThat(viewPagers.single().toString()).isEqualTo(
             Artifact(
                 groupId = "androidx.viewpager2",

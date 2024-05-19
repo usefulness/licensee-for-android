@@ -36,7 +36,9 @@ fun AssetsOssView() {
 
     when (val state = uiState.value) {
         State.Loading -> LoadingView(stringResource(id = R.string.loading))
+
         is State.Failed -> ErrorView(stringResource(id = R.string.error), state.errorMessage)
+
         is State.Success -> {
             Column {
                 Text(
