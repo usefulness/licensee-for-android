@@ -55,6 +55,37 @@ jobs:
           name: test-results-${{ matrix.os }}
           path: "${{ github.workspace }}/**/build/reports/tests"
 
+  build-sample:
+    runs-on: ubuntu-latest
+    name: Build sample app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Write Gradle build properties to `~/.gradle/gradle.properties`
+        run: |
+          mkdir -p ~/.gradle
+          printf "org.gradle.jvmargs=-Xmx3G -XX:+UseParallelGC\n" >> ~/.gradle/gradle.properties
+          printf "org.gradle.vfs.watch=false\n" >> ~/.gradle/gradle.properties
+        shell: bash
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v3
+
+      - run: ./gradlew check
+        working-directory: sample
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: sample-test-results-${{ matrix.os }}
+          path: "${{ github.workspace }}/**/build/reports/tests"
+
   provide-agp-version-matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -98,9 +129,10 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v3
         with:
-          build-root-directory: sample
           gradle-version: ${{ matrix.gradle }}
-          arguments: build -PagpVersion=${{ matrix.agp }} --continue
+
+      - run: ./gradlew build -PagpVersion=${{ matrix.agp }} --continue
+        working-directory: sample
 
       - name: Upload reports
         if: ${{ failure() }}
