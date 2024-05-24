@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.starter.library.android) apply false
     alias(libs.plugins.starter.library.kotlin) apply false
     id("io.github.usefulness.licensee-for-android") apply false
+    alias(libs.plugins.kotlin.compose.compiler) apply false
 }
 
 commonConfig {

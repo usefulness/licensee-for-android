@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.starter.library.android)
     alias(libs.plugins.app.cash.licensee)
     id("io.github.usefulness.licensee-for-android")
+    alias(libs.plugins.kotlin.compose.compiler)
 }
 
 licensee {
@@ -27,9 +28,6 @@ android {
     }
     testOptions {
         unitTests.includeAndroidResources true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
 }
 
