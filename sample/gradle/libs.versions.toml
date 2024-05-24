@@ -1,5 +1,5 @@
 [versions]
-gradle-starter = "0.73.0"
+gradle-starter = "0.74.0"
 maven-kotlin-serialization = "1.6.3"
 maven-kotlin = "2.0.0"
 maven-junit = "5.10.2"
@@ -47,7 +47,6 @@ androidx-compose-ui-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-runtime-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
 androidx-compose-ui-ui-text = { module = "androidx.compose.ui:ui-text" }
 androidx-core-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 org-jetbrains-kotlinx-kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1"
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 material3 = { module = "androidx.compose.material3:material3" }
@@ -60,6 +59,7 @@ android-composeCompiler = {module="androidx.compose.compiler:compiler", version.
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "maven-kotlin" }
 starter-config = { id = "com.starter.config", version.ref = "gradle-starter" }
 starter-versioning = { id = "com.starter.versioning", version.ref = "gradle-starter" }
 starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gradle-starter" }

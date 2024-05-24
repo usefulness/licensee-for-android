@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.app.cash.licensee)
     id("io.github.usefulness.licensee-for-android")
     alias(libs.plugins.starter.easylauncher)
+    alias(libs.plugins.kotlin.compose.compiler)
 }
 
 licensee {
@@ -52,9 +53,6 @@ android {
     lint {
         checkReleaseBuilds = false
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
-    }
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -67,7 +65,7 @@ tasks.withType(Test).configureEach {
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.core.ktx)
+    implementation(libs.androidx.core.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(libs.ui)

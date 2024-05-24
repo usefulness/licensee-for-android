@@ -1,6 +1,6 @@
 [versions]
 java-compilation = "21"
-gradle-starter = "0.73.0"
+gradle-starter = "0.74.0"
 gradle-pluginpublish = "1.2.1"
 google-agp = "8.4.1"
 maven-kotlin-serialization = "1.6.3"
@@ -9,7 +9,7 @@ maven-junit = "5.10.2"
 maven-assertj = "3.25.3"
 maven-binarycompatiblity = "0.14.0"
 maven-dokka = "1.9.20"
-maven-poko = "0.15.3"
+maven-poko = "0.16.0-beta01"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
