@@ -14,6 +14,7 @@ compose-bom = "2024.06.00"
 core-ktx = "1.13.1"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.8.3"
+maven-ktlint = "1.3.1"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
@@ -54,8 +55,9 @@ ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-io-nlopez-compose = "io.nlopez.compose.rules:ktlint:0.4.4"
+io-nlopez-compose = "io.nlopez.compose.rules:ktlint:0.4.5"
 android-composeCompiler = {module="androidx.compose.compiler:compiler", version.ref ="androidx-compose-compiler"}
+ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "maven-ktlint" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin" }
