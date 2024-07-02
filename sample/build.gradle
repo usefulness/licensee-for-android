@@ -20,4 +20,9 @@ subprojects {
             jvmTarget = "20"
         }
     }
+    pluginManager.withPlugin("io.github.usefulness.ktlint-gradle-plugin") {
+        ktlint {
+            ktlintVersion = libs.versions.maven.ktlint.get()
+        }
+    }
 }
