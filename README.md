@@ -73,6 +73,34 @@ licenseeForAndroid {
 }
 ```
 #### Generate Kotlin code in Kotlin-only module using licensee output from a different module
+###### DI based approach
+
+`app/build.gradle`:
+
+```groovy
+plugins {
+    id("com.android.application") 
+    id("app.cash.licensee")
+    id("io.github.usefulness.licensee-for-android")
+}
+
+licenseeForAndroid {
+    enableKotlinCodeGeneration = true
+}
+```
+\+ provide `LicenseeForAndroid` object as `Licensee` interface using your DI framework
+
+`consumer/build.gradle`:
+```groovy
+plugins {
+    id("org.jetbrains.kotlin.jvm") // or any other module type
+}
+
+dependencies {
+    implementation("io.github.usefulness:licensee-for-android-core:${{ version }")
+}
+```
+\+ inject `Licensee` interface
 
 ###### Gradle based approach
 ```groovy
@@ -104,34 +132,6 @@ tasks.named("compileKotlin") {
     dependsOn("generateLicenseeKotlinCode")
 }
 ```
-
-###### DI based approach
-
-`app/build.gradle`:
-
-```groovy
-plugins {
-    id("com.android.application") 
-    id("app.cash.licensee")
-    id("io.github.usefulness.licensee-for-android")
-}
-licenseeForAndroid {
-    enableKotlinCodeGeneration = true
-}
-```
-\+ provide `LicenseeForAndroid` object as `Licensee` interface using your DI framework
-
-`consumer/build.gradle`:
-```groovy
-plugins {
-    id("org.jetbrains.kotlin.jvm") // or any other module type
-}
-
-dependencies {
-    implementation("io.github.usefulness:licensee-for-android-core:${{ version }")
-}
-```
-\+ inject `Licensee` interface
 
 
 ### Credits
