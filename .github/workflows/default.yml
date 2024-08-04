@@ -35,9 +35,9 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - uses: gradle/actions/wrapper-validation@v3
+      - uses: gradle/actions/wrapper-validation@v4
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
 
       - run: ./gradlew assemble
 
@@ -75,7 +75,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
 
       - run: ./gradlew check
         working-directory: sample
@@ -118,7 +118,7 @@ jobs:
         with:
           version-to-resolve: ${{ matrix.agp }}
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: ${{ matrix.gradle }}
 
