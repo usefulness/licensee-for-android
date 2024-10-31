@@ -16,9 +16,6 @@ subprojects {
         detekt {
             baseline = file("config/baseline.xml")
         }
-        tasks.named("detektBaseline") {
-            jvmTarget = "20"
-        }
     }
     pluginManager.withPlugin("io.github.usefulness.ktlint-gradle-plugin") {
         ktlint {

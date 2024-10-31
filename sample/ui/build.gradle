@@ -19,10 +19,6 @@ licenseeForAndroid {
 android {
     namespace "io.githhub.usefulness.licensee.android.ui"
 
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 26
-    }
     buildFeatures {
         compose = true
     }
