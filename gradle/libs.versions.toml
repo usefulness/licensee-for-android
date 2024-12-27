@@ -9,7 +9,7 @@ maven-junit = "5.11.4"
 maven-assertj = "3.27.0"
 maven-binarycompatiblity = "0.17.0"
 maven-dokka = "2.0.0"
-maven-poko = "0.18.1"
+maven-poko = "0.18.2"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
