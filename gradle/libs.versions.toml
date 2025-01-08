@@ -21,7 +21,7 @@ kotlin-gradle-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", 
 com-squareup-kotlinpoet = "com.squareup:kotlinpoet:2.0.0"
 kotlinx-serialization-json-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "maven-kotlin-serialization" }
 kotlinx-serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "maven-kotlin-serialization" }
-com-squareup-okio = "com.squareup.okio:okio:3.9.1"
+com-squareup-okio = "com.squareup.okio:okio:3.10.1"
 jetbrains-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "maven-dokka" }
 
 [plugins]
