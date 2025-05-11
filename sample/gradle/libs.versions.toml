@@ -57,4 +57,4 @@ starter-library-kotlin = { id = "com.starter.library.kotlin", version.ref = "gra
 starter-library-android = { id = "com.starter.library.android", version.ref = "gradle-starter" }
 starter-application-android = { id = "com.starter.application.android", version.ref = "gradle-starter" }
 app-cash-licensee = "app.cash.licensee:1.13.0"
-starter-easylauncher = "com.starter.easylauncher:6.4.0"
+starter-easylauncher = "com.starter.easylauncher:6.4.1"
