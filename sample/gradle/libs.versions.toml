@@ -11,7 +11,7 @@ androidx-core = "1.16.0"
 androidx-test-ext-junit = "1.2.1"
 com-squareup-moshi = "1.15.1"
 compose-bom = "2025.06.00"
-lifecycle-runtime-ktx = "2.9.0"
+lifecycle-runtime-ktx = "2.9.1"
 maven-ktlint = "1.4.0"
 
 [libraries]
