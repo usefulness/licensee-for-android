@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapperKt
 
 plugins {
@@ -22,6 +23,10 @@ allprojects {
         }
         kotlin {
             jvmToolchain(libs.versions.java.compilation.get().toInteger())
+            compilerOptions {
+                apiVersion = KotlinVersion.KOTLIN_1_8
+                languageVersion = KotlinVersion.KOTLIN_1_8
+            }
         }
     }
     pluginManager.withPlugin("java") {
