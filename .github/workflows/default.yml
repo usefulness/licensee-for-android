@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 23
+          java-version-file: .java-version
 
       - uses: gradle/actions/wrapper-validation@v4
 
@@ -73,7 +73,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 23
+          java-version-file: .java-version
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -92,7 +92,7 @@ jobs:
       fail-fast: false
       matrix:
         gradle: [ current, release-candidate ]
-        java: [ 21, 23 ]
+        java: [ 21, 24 ]
         agp: [ stable, alpha ]
 
     name: '[android] Gradle: ${{ matrix.gradle }}, Java: ${{ matrix.java }}, AGP: ${{ matrix.agp }}'
