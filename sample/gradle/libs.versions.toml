@@ -46,7 +46,7 @@ material3 = { module = "androidx.compose.material3:material3" }
 ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-io-nlopez-compose = "io.nlopez.compose.rules:ktlint:0.4.22"
+io-nlopez-compose = "io.nlopez.compose.rules:ktlint:0.4.26"
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "maven-kotlin" }
