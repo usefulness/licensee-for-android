@@ -1,44 +1,68 @@
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.jvm.tasks.Jar
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.plugin.devel.GradlePluginDevelopmentExtension
-import org.gradle.plugins.signing.SigningExtension
-import org.jetbrains.dokka.gradle.DokkaTask
+import kotlin.jvm.java
 
 class PublishingPlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
-        pluginManager.apply("maven-publish")
-        if (findConfig("SIGNING_PASSWORD").isNotEmpty()) {
-            pluginManager.apply("signing")
-        }
+        pluginManager.apply("com.vanniktech.maven.publish")
+        pluginManager.apply("org.jetbrains.dokka")
 
-        extensions.configure<PublishingExtension> {
-            with(repositories) {
-                maven { maven ->
-                    maven.name = "github"
-                    maven.setUrl("https://maven.pkg.github.com/usefulness/licensee-for-android")
-                    with(maven.credentials) {
-                        username = "usefulness"
-                        password = findConfig("GITHUB_TOKEN")
+        extensions.configure<MavenPublishBaseExtension> {
+            publishToMavenCentral()
+            coordinates(group.toString(), name, version.toString())
+
+            signAllPublications()
+
+            configureBasedOnAppliedPlugins()
+
+            pom { pom ->
+                afterEvaluate {
+                    pom.name.set("${project.group}:${project.name}")
+                    pom.description.set(project.description)
+                }
+                pom.url.set("https://github.com/usefulness/licensee-for-android")
+                pom.licenses { licenses ->
+                    licenses.license { license ->
+                        license.name.set("MIT")
+                        license.url.set("https://github.com/usefulness/licensee-for-android/blob/master/LICENSE")
                     }
                 }
-                maven { maven ->
-                    maven.name = "mavenCentral"
-                    maven.setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                    maven.mavenContent { it.releasesOnly() }
-                    with(maven.credentials) {
-                        username = findConfig("OSSRH_USERNAME")
-                        password = findConfig("OSSRH_PASSWORD")
+                pom.developers { developers ->
+                    developers.developer { developer ->
+                        developer.id.set("mateuszkwiecinski")
+                        developer.name.set("Mateusz Kwiecinski")
+                        developer.email.set("36954793+mateuszkwiecinski@users.noreply.github.com")
                     }
+                }
+                pom.scm { scm ->
+                    scm.connection.set("scm:git:github.com/usefulness/licensee-for-android.git")
+                    scm.developerConnection.set("scm:git:ssh://github.com/usefulness/licensee-for-android.git")
+                    scm.url.set("https://github.com/usefulness/licensee-for-android/tree/master")
                 }
             }
         }
+        extensions.configure<PublishingExtension> {
+            repositories.maven { maven ->
+                maven.name = "github"
+                maven.setUrl("https://maven.pkg.github.com/usefulness/licensee-for-android")
+                with(maven.credentials) {
+                    username = "usefulness"
+                    password = findConfig("GITHUB_TOKEN")
+                }
+            }
+
+            tasks.named { it == "javadocJar" }.withType(Jar::class.java).configureEach { javadocJar ->
+                javadocJar.from(tasks.named("dokkaGeneratePublicationHtml"))
+            }
+        }
+
         pluginManager.withPlugin("com.gradle.plugin-publish") {
             extensions.configure<GradlePluginDevelopmentExtension>("gradlePlugin") { gradlePlugin ->
                 gradlePlugin.apply {
@@ -48,77 +72,14 @@ class PublishingPlugin : Plugin<Project> {
             }
         }
 
-        pluginManager.withPlugin("signing") {
-            with(extensions.extraProperties) {
-                set("signing.keyId", findConfig("SIGNING_KEY_ID"))
-                set("signing.password", findConfig("SIGNING_PASSWORD"))
-                set("signing.secretKeyRingFile", findConfig("SIGNING_SECRET_KEY_RING_FILE"))
-            }
-
-            extensions.configure<SigningExtension>("signing") { signing ->
-                signing.sign(extensions.getByType(PublishingExtension::class.java).publications)
-            }
-        }
-
         pluginManager.withPlugin("java") {
-            extensions.configure<JavaPluginExtension> {
-                withSourcesJar()
-                withJavadocJar()
-            }
-
             tasks.named("processResources", ProcessResources::class.java) { processResources ->
                 processResources.from(rootProject.file("LICENSE"))
-            }
-
-            pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
-                pluginManager.apply("org.jetbrains.dokka")
-
-                tasks.withType(DokkaTask::class.java).configureEach { dokkaTask ->
-                    dokkaTask.notCompatibleWithConfigurationCache("https://github.com/Kotlin/dokka/issues/1217")
-                }
-                tasks.named("javadocJar", Jar::class.java) { javadocJar ->
-                    javadocJar.from(tasks.named("dokkaJavadoc"))
-                }
-            }
-
-            extensions.configure<PublishingExtension> {
-                if (!pluginManager.hasPlugin("com.gradle.plugin-publish")) {
-                    publications.register("mavenJava", MavenPublication::class.java) { publication ->
-                        publication.from(components.getByName("java"))
-                    }
-                }
-                publications.configureEach { publication ->
-                    (publication as? MavenPublication)?.pom { pom ->
-                        afterEvaluate {
-                            pom.name.set("${project.group}:${project.name}")
-                            pom.description.set(project.description)
-                        }
-                        pom.url.set("https://github.com/usefulness/licensee-for-android")
-                        pom.licenses { licenses ->
-                            licenses.license { license ->
-                                license.name.set("MIT")
-                                license.url.set("https://github.com/usefulness/licensee-for-android/blob/master/LICENSE")
-                            }
-                        }
-                        pom.developers { developers ->
-                            developers.developer { developer ->
-                                developer.id.set("mateuszkwiecinski")
-                                developer.name.set("Mateusz Kwiecinski")
-                                developer.email.set("36954793+mateuszkwiecinski@users.noreply.github.com")
-                            }
-                        }
-                        pom.scm { scm ->
-                            scm.connection.set("scm:git:github.com/usefulness/licensee-for-android.git")
-                            scm.developerConnection.set("scm:git:ssh://github.com/usefulness/licensee-for-android.git")
-                            scm.url.set("https://github.com/usefulness/licensee-for-android/tree/master")
-                        }
-                    }
-                }
             }
         }
     }
 
-    private inline fun <reified T> ExtensionContainer.configure(crossinline receiver: T.() -> Unit) {
+    private inline fun <reified T : Any> ExtensionContainer.configure(crossinline receiver: T.() -> Unit) {
         configure(T::class.java) { receiver(it) }
     }
 }
