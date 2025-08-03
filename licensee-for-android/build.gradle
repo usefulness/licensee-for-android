@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
@@ -32,12 +31,6 @@ kotlin {
     explicitApi()
 }
 
-tasks.withType(KotlinCompile).configureEach {
-    compilerOptions {
-        apiVersion = KotlinVersion.KOTLIN_1_8
-        languageVersion = KotlinVersion.KOTLIN_1_8
-    }
-}
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }

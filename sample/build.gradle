@@ -17,9 +17,4 @@ subprojects {
             baseline = file("config/baseline.xml")
         }
     }
-    pluginManager.withPlugin("io.github.usefulness.ktlint-gradle-plugin") {
-        ktlint {
-            ktlintVersion = libs.versions.maven.ktlint.get()
-        }
-    }
 }
