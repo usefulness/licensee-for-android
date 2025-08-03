@@ -23,7 +23,7 @@ kotlinx-serialization-json-core = { module = "org.jetbrains.kotlinx:kotlinx-seri
 kotlinx-serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "maven-kotlin-serialization" }
 com-squareup-okio = "com.squareup.okio:okio:3.16.0"
 jetbrains-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "maven-dokka" }
-vanniktech-maven-publish = "com.vanniktech:gradle-maven-publish-plugin:0.33.0"
+vanniktech-maven-publish = "com.vanniktech:gradle-maven-publish-plugin:0.34.0"
 
 [plugins]
 starter-config = { id = "com.starter.config", version.ref = "gradle-starter" }
