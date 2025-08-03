@@ -3,7 +3,6 @@ package io.github.usefulness.licensee
 import org.gradle.api.Incubating
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 
 public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
 
@@ -42,10 +41,5 @@ public open class LicenseeForAndroidExtension(objectFactory: ObjectFactory) {
     public val automaticCoreDependencyManagement: Property<Boolean> = objectFactory.property(default = true)
 }
 
-internal inline fun <reified T> ObjectFactory.property(default: T? = null): Property<T> = property(T::class.java).apply {
-    convention(default)
-}
-
-internal inline fun <reified T> ObjectFactory.setProperty(default: Set<T>? = null): SetProperty<T> = setProperty(T::class.java).apply {
-    convention(default)
-}
+internal inline fun <reified T : Any> ObjectFactory.property(default: T? = null) = property(T::class.java)
+    .apply { convention(default) }
