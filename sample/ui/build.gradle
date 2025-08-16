@@ -17,13 +17,13 @@ licenseeForAndroid {
 }
 
 android {
-    namespace "io.githhub.usefulness.licensee.android.ui"
+    namespace = "io.githhub.usefulness.licensee.android.ui"
 
     buildFeatures {
         compose = true
     }
     testOptions {
-        unitTests.includeAndroidResources true
+        unitTests.includeAndroidResources = true
     }
 }
 
