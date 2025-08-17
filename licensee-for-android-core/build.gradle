@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.starter.library.kotlin)
+    alias(libs.plugins.starter.library.multiplatform)
     alias(libs.plugins.kotlinx.binarycompatibility)
     alias(libs.plugins.drewhamilton.poko)
     id("java-test-fixtures")
@@ -10,13 +10,47 @@ description = "core library for io.github.usefulness.licensee-for-android gradle
 
 kotlin {
     explicitApi()
+
+    iosArm64()
+    iosSimulatorArm64()
+    iosX64()
+
+    macosArm64()
+    macosX64()
+
+    linuxArm64()
+
+// https://youtrack.jetbrains.com/issue/KT-68533
+//    js {
+//        browser()
+//    }
+
+    jvm()
+
+    tvosArm64()
+    tvosSimulatorArm64()
+    tvosX64()
+
+// https://youtrack.jetbrains.com/issue/KT-68533
+//    wasmJs {
+//        browser()
+//    }
+//
+//    wasmWasi {
+//        nodejs()
+//    }
+
+    watchosArm32()
+    watchosArm64()
+    watchosDeviceArm64()
+    watchosSimulatorArm64()
+    watchosX64()
 }
 
 poko {
-    pokoAnnotation = "io.github.usefulness.licensee.Poko"
+    pokoAnnotation = "io/github/usefulness/licensee/Poko"
 }
 
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }
-
