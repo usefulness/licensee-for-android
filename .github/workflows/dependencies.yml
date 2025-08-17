@@ -98,7 +98,7 @@ jobs:
         uses: usefulness/dependency-tree-diff-action@v2
         with:
           project: licensee-for-android-core
-          configuration: 'runtimeClasspath'
+          configuration: 'jvmRuntimeClasspath'
 
       - uses: peter-evans/find-comment@v3
         id: find_comment
