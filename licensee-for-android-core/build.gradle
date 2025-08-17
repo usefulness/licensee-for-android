@@ -20,9 +20,10 @@ kotlin {
 
     linuxArm64()
 
-    js {
-        browser()
-    }
+// https://youtrack.jetbrains.com/issue/KT-68533
+//    js {
+//        browser()
+//    }
 
     jvm()
 
@@ -30,13 +31,14 @@ kotlin {
     tvosSimulatorArm64()
     tvosX64()
 
-    wasmJs {
-        browser()
-    }
-
-    wasmWasi {
-        nodejs()
-    }
+// https://youtrack.jetbrains.com/issue/KT-68533
+//    wasmJs {
+//        browser()
+//    }
+//
+//    wasmWasi {
+//        nodejs()
+//    }
 
     watchosArm32()
     watchosArm64()
@@ -52,4 +54,3 @@ poko {
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }
-
