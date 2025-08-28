@@ -11,7 +11,7 @@ androidx-core = "1.17.0"
 androidx-test-ext-junit = "1.2.1"
 com-squareup-moshi = "1.15.1"
 compose-bom = "2025.08.01"
-lifecycle-runtime-ktx = "2.9.2"
+lifecycle-runtime-ktx = "2.9.3"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "maven-junit" }
