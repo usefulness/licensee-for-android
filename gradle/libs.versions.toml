@@ -9,7 +9,7 @@ maven-junit = "5.13.4"
 maven-assertj = "3.27.4"
 maven-binarycompatiblity = "0.18.1"
 maven-dokka = "2.0.0"
-maven-poko = "0.19.3"
+maven-poko = "0.20.0"
 maven-vanniktech-publish = "0.34.0"
 
 [libraries]
