@@ -45,7 +45,7 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
             val targetCapitalized = target.replaceFirstChar(Char::titlecase)
             val licenseeTaskName = "licenseeAndroid$sourceCapitalized"
 
-            val artifactsFile = reportingExtension.file("licensee/android$sourceCapitalized/artifacts.json")
+            val artifactsFile = reportingExtension.baseDirectory.file("licensee/android$sourceCapitalized/artifacts.json")
 
             if (extension.enableResourceGeneration.get()) {
                 val copyArtifactsTask = tasks.register(
@@ -91,7 +91,7 @@ public class LicenseeForAndroidPlugin : Plugin<Project> {
         val kotlinExtension = project.extensions.getByType(KotlinSourceSetContainer::class.java)
         val licenseeTaskName = "licensee"
 
-        val artifactsFile = reportingExtension.file("licensee/artifacts.json")
+        val artifactsFile = reportingExtension.baseDirectory.file("licensee/artifacts.json")
         if (extension.enableResourceGeneration.get()) {
             val kotlinSourceSet = kotlinExtension.sourceSets.named("main").get().resources
             val targetDirectory = layout.buildDirectory.map { it.dir("generated").dir("licenseeResources") }
