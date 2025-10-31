@@ -49,7 +49,7 @@ jobs:
 
       - run: git diff --exit-code
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: ${{ always() }}
         with:
           name: test-results-${{ matrix.os }}
@@ -80,7 +80,7 @@ jobs:
       - run: ./gradlew check
         working-directory: sample
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: ${{ always() }}
         with:
           name: sample-test-results-${{ matrix.os }}
@@ -127,7 +127,7 @@ jobs:
 
       - name: Upload reports
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "sample-reports-${{ matrix.gradle }}-${{ matrix.java }}-${{ matrix.agp }}"
           path: "${{ github.workspace }}/**/build/reports/"
