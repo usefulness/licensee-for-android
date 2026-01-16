@@ -2,7 +2,7 @@
 java-compilation = "24"
 gradle-starter = "0.91.0"
 gradle-pluginpublish = "2.0.0"
-google-agp = "8.13.2"
+google-agp = "9.0.0"
 maven-kotlin-serialization = "1.9.0"
 maven-kotlin = "2.3.0"
 maven-junit = "5.14.2"
