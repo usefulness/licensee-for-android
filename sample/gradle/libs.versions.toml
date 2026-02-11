@@ -10,7 +10,7 @@ androidx-compose-compiler = "1.5.15"
 androidx-core = "1.17.0"
 androidx-test-ext-junit = "1.2.1"
 com-squareup-moshi = "1.15.1"
-compose-bom = "2026.01.01"
+compose-bom = "2026.02.00"
 lifecycle-runtime-ktx = "2.10.0"
 
 [libraries]
