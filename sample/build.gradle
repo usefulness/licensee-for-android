@@ -8,13 +8,5 @@ plugins {
 }
 
 commonConfig {
-    javaVersion = JavaVersion.VERSION_11
-}
-
-subprojects {
-    pluginManager.withPlugin("io.gitlab.arturbosch.detekt") {
-        detekt {
-            baseline = file("config/baseline.xml")
-        }
-    }
+    javaVersion = JavaVersion.VERSION_17
 }
