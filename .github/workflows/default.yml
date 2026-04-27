@@ -92,7 +92,7 @@ jobs:
       fail-fast: false
       matrix:
         gradle: [ current, release-candidate ]
-        java: [ 21, 24 ]
+        java: [ 21, 25 ]
         agp: [ stable, alpha ]
 
     name: '[android] Gradle: ${{ matrix.gradle }}, Java: ${{ matrix.java }}, AGP: ${{ matrix.agp }}'

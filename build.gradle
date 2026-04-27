@@ -9,24 +9,17 @@ plugins {
 }
 
 commonConfig {
-    javaVersion JavaVersion.VERSION_11
+    javaVersion JavaVersion.VERSION_17
 }
 
 allprojects {
     pluginManager.withPlugin("kotlin") { plugin ->
         def kotlinVersion = KotlinPluginWrapperKt.getKotlinPluginVersion(project)
-        configurations.matching { it.name != "detekt" }.configureEach {
-            resolutionStrategy.eachDependency {
-                if (requested.group == 'org.jetbrains.kotlin' && requested.name.startsWith("kotlin")) {
-                    useVersion kotlinVersion
-                }
-            }
-        }
         kotlin {
             jvmToolchain(libs.versions.java.compilation.get().toInteger())
             compilerOptions {
-                apiVersion = KotlinVersion.KOTLIN_1_8
-                languageVersion = KotlinVersion.KOTLIN_1_8
+                apiVersion = KotlinVersion.KOTLIN_2_1
+                languageVersion = KotlinVersion.KOTLIN_2_1
             }
         }
     }
