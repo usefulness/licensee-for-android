@@ -1,5 +1,5 @@
 [versions]
-gradle-starter = "0.95.0"
+gradle-starter = "0.96.1"
 maven-kotlin-serialization = "1.11.0"
 maven-kotlin = "2.4.10"
 maven-junit = "6.1.2"
