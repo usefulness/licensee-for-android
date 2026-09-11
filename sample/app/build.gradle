@@ -61,6 +61,8 @@ android {
 }
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
+    // Robolectric 4.17+ reflects into jdk.internal.access on JDK 17+, see https://robolectric.org/getting-started/
+    jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
 }
 
 dependencies {
