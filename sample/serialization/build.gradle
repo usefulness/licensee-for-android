@@ -17,12 +17,19 @@ licenseeForAndroid {
     generatedPackageName = "example.generated.from.kotlin.library"
 }
 
+def appLicenseeArtifacts = configurations.dependencyScope("appLicenseeArtifacts")
+def appLicenseeArtifactsFiles = configurations.resolvable("appLicenseeArtifactsFiles") {
+    extendsFrom(appLicenseeArtifacts.get())
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, "licensee-artifacts"))
+}
+dependencies {
+    add("appLicenseeArtifacts", project(":app"))
+}
+
 def licenseeTarget = layout.buildDirectory.map { it.dir("generated/licenseeCustom") }
 tasks.register("generateCustomLicenseeKotlinCode", CodeGenerationTask) {
-    it.inputFile.set(
-            project(":app").tasks.named("licenseeAndroidDebug")
-                    .flatMap { it.outputDir.file("artifacts.json") }
-    )
+    it.inputFile.fileProvider(appLicenseeArtifactsFiles.flatMap { it.elements }.map { it.first().asFile })
+    it.dependsOn(appLicenseeArtifactsFiles)
     it.outputDirectory.set(licenseeTarget)
     it.packageName.set("example.generated.app_rules.from.kotlin.library")
 }

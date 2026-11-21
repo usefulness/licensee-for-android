@@ -14,6 +14,15 @@ licenseeForAndroid {
     enableKotlinCodeGeneration = true
     enableResourceGeneration = true
 }
+
+def licenseeArtifactsElements = configurations.consumable("licenseeArtifactsElements") {
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, "licensee-artifacts"))
+}
+androidComponents.onVariants(androidComponents.selector().withName("debug")) {
+    licenseeArtifactsElements.configure {
+        outgoing.artifact(tasks.named("licenseeAndroidDebug").flatMap { it.outputDir.file("artifacts.json") })
+    }
+}
 android {
     namespace = "io.githhub.usefulness.licensee.android.app"
     // androidx.compose 1.13+ requires compileSdk 37.1, which gradle-starter's integer-only `compileSdkVersion` can't express
@@ -30,7 +39,7 @@ android {
     }
     signingConfigs {
         named("debug") {
-            storeFile rootProject.file("keys/debug.keystore")
+            storeFile isolated.rootProject.projectDirectory.file("keys/debug.keystore").asFile
             storePassword = 'android'
             keyAlias = 'androiddebugkey'
             keyPassword = 'android'

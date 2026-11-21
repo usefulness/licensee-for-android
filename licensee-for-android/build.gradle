@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.starter.library.kotlin)
     alias(libs.plugins.kotlin.serialization)
     id("com.starter.publishing")
+    id("com.starter.conventions")
 }
 
 dependencies {

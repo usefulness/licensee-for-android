@@ -1,12 +1,7 @@
 plugins {
-    alias(libs.plugins.starter.config)
     alias(libs.plugins.starter.application.android) apply false
     alias(libs.plugins.starter.library.android) apply false
     alias(libs.plugins.starter.library.kotlin) apply false
     id("io.github.usefulness.licensee-for-android") apply false
     alias(libs.plugins.kotlin.compose.compiler) apply false
-}
-
-commonConfig {
-    javaVersion = JavaVersion.VERSION_17
 }

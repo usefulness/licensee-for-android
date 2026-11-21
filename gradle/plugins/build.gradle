@@ -19,6 +19,7 @@ tasks.withType(JavaCompile).configureEach {
 dependencies {
     implementation(libs.jetbrains.dokka)
     implementation(libs.vanniktech.maven.publish)
+    compileOnly(libs.kotlin.gradle.plugin)
 }
 
 gradlePlugin {
@@ -26,6 +27,10 @@ gradlePlugin {
         publishingPlugin {
             id = 'com.starter.publishing'
             implementationClass = 'PublishingPlugin'
+        }
+        conventionsPlugin {
+            id = 'com.starter.conventions'
+            implementationClass = 'ConventionsPlugin'
         }
     }
 }
