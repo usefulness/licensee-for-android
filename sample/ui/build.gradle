@@ -18,6 +18,12 @@ licenseeForAndroid {
 
 android {
     namespace = "io.githhub.usefulness.licensee.android.ui"
+    // androidx.compose 1.13+ requires compileSdk 37.1, which gradle-starter's integer-only `compileSdkVersion` can't express
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
 
     buildFeatures {
         compose = true
