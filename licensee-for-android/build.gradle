@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.gradle.pluginpublish)
     alias(libs.plugins.starter.library.kotlin)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlinx.binarycompatibility)
     id("com.starter.publishing")
 }
 
@@ -27,6 +26,9 @@ dependencies {
 
 kotlin {
     explicitApi()
+    abiValidation {
+        enabled = true
+    }
 }
 
 tasks.withType(Test).configureEach {

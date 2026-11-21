@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.starter.library.multiplatform)
-    alias(libs.plugins.kotlinx.binarycompatibility)
     alias(libs.plugins.drewhamilton.poko)
     id("java-test-fixtures")
     id("com.starter.publishing")
@@ -10,6 +9,9 @@ description = "core library for io.github.usefulness.licensee-for-android gradle
 
 kotlin {
     explicitApi()
+    abiValidation {
+        enabled = true
+    }
 
     iosArm64()
     iosSimulatorArm64()
