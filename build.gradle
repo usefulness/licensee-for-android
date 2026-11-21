@@ -1,33 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapperKt
-
 plugins {
-    alias(libs.plugins.starter.config)
-    alias(libs.plugins.starter.versioning)
     alias(libs.plugins.starter.library.kotlin) apply false
     alias(libs.plugins.vanniktech.maven.publish) apply false
-}
-
-commonConfig {
-    javaVersion JavaVersion.VERSION_17
-}
-
-allprojects {
-    pluginManager.withPlugin("kotlin") { plugin ->
-        def kotlinVersion = KotlinPluginWrapperKt.getKotlinPluginVersion(project)
-        kotlin {
-            jvmToolchain(libs.versions.java.compilation.get().toInteger())
-            compilerOptions {
-                apiVersion = KotlinVersion.KOTLIN_2_1
-                languageVersion = KotlinVersion.KOTLIN_2_1
-            }
-        }
-    }
-    pluginManager.withPlugin("java") {
-        if (project.hasProperty("skipJarVersion")) {
-            tasks.named("jar") {
-                archiveFile.set(project.layout.buildDirectory.map { it.file("libs/${project.name}.jar")})
-            }
-        }
-    }
 }

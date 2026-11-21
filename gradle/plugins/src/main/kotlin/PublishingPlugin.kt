@@ -74,7 +74,7 @@ class PublishingPlugin : Plugin<Project> {
 
         pluginManager.withPlugin("java") {
             tasks.named("processResources", ProcessResources::class.java) { processResources ->
-                processResources.from(rootProject.file("LICENSE"))
+                processResources.from(isolated.rootProject.projectDirectory.file("LICENSE"))
             }
         }
     }

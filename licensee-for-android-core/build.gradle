@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.drewhamilton.poko)
     id("java-test-fixtures")
     id("com.starter.publishing")
+    id("com.starter.conventions")
 }
 description = "core library for io.github.usefulness.licensee-for-android gradle plugin. Exposes shareable classes and interfaces, useful in multi-module projects"
 
