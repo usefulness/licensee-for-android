@@ -1,0 +1,74 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.usefulness:licensee-for-android-core>
+abstract interface io.github.usefulness.licensee/Licensee { // io.github.usefulness.licensee/Licensee|null[0]
+    abstract val artifacts // io.github.usefulness.licensee/Licensee.artifacts|{}artifacts[0]
+        abstract fun <get-artifacts>(): kotlin.collections/List<io.github.usefulness.licensee/Artifact> // io.github.usefulness.licensee/Licensee.artifacts.<get-artifacts>|<get-artifacts>(){}[0]
+}
+
+final class io.github.usefulness.licensee/Artifact { // io.github.usefulness.licensee/Artifact|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String, kotlin/String?, kotlin.collections/List<io.github.usefulness.licensee/SpdxLicense>, io.github.usefulness.licensee/Scm?, kotlin.collections/List<io.github.usefulness.licensee/UnknownLicense>) // io.github.usefulness.licensee/Artifact.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String?;kotlin.collections.List<io.github.usefulness.licensee.SpdxLicense>;io.github.usefulness.licensee.Scm?;kotlin.collections.List<io.github.usefulness.licensee.UnknownLicense>){}[0]
+
+    final val artifactId // io.github.usefulness.licensee/Artifact.artifactId|{}artifactId[0]
+        final fun <get-artifactId>(): kotlin/String // io.github.usefulness.licensee/Artifact.artifactId.<get-artifactId>|<get-artifactId>(){}[0]
+    final val groupId // io.github.usefulness.licensee/Artifact.groupId|{}groupId[0]
+        final fun <get-groupId>(): kotlin/String // io.github.usefulness.licensee/Artifact.groupId.<get-groupId>|<get-groupId>(){}[0]
+    final val name // io.github.usefulness.licensee/Artifact.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // io.github.usefulness.licensee/Artifact.name.<get-name>|<get-name>(){}[0]
+    final val scm // io.github.usefulness.licensee/Artifact.scm|{}scm[0]
+        final fun <get-scm>(): io.github.usefulness.licensee/Scm? // io.github.usefulness.licensee/Artifact.scm.<get-scm>|<get-scm>(){}[0]
+    final val spdxLicenses // io.github.usefulness.licensee/Artifact.spdxLicenses|{}spdxLicenses[0]
+        final fun <get-spdxLicenses>(): kotlin.collections/List<io.github.usefulness.licensee/SpdxLicense> // io.github.usefulness.licensee/Artifact.spdxLicenses.<get-spdxLicenses>|<get-spdxLicenses>(){}[0]
+    final val unknownLicenses // io.github.usefulness.licensee/Artifact.unknownLicenses|{}unknownLicenses[0]
+        final fun <get-unknownLicenses>(): kotlin.collections/List<io.github.usefulness.licensee/UnknownLicense> // io.github.usefulness.licensee/Artifact.unknownLicenses.<get-unknownLicenses>|<get-unknownLicenses>(){}[0]
+    final val version // io.github.usefulness.licensee/Artifact.version|{}version[0]
+        final fun <get-version>(): kotlin/String // io.github.usefulness.licensee/Artifact.version.<get-version>|<get-version>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.usefulness.licensee/Artifact.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.usefulness.licensee/Artifact.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.usefulness.licensee/Artifact.toString|toString(){}[0]
+}
+
+final class io.github.usefulness.licensee/Scm { // io.github.usefulness.licensee/Scm|null[0]
+    constructor <init>(kotlin/String) // io.github.usefulness.licensee/Scm.<init>|<init>(kotlin.String){}[0]
+
+    final val url // io.github.usefulness.licensee/Scm.url|{}url[0]
+        final fun <get-url>(): kotlin/String // io.github.usefulness.licensee/Scm.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.usefulness.licensee/Scm.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.usefulness.licensee/Scm.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.usefulness.licensee/Scm.toString|toString(){}[0]
+}
+
+final class io.github.usefulness.licensee/SpdxLicense { // io.github.usefulness.licensee/SpdxLicense|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String) // io.github.usefulness.licensee/SpdxLicense.<init>|<init>(kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val identifier // io.github.usefulness.licensee/SpdxLicense.identifier|{}identifier[0]
+        final fun <get-identifier>(): kotlin/String // io.github.usefulness.licensee/SpdxLicense.identifier.<get-identifier>|<get-identifier>(){}[0]
+    final val name // io.github.usefulness.licensee/SpdxLicense.name|{}name[0]
+        final fun <get-name>(): kotlin/String // io.github.usefulness.licensee/SpdxLicense.name.<get-name>|<get-name>(){}[0]
+    final val url // io.github.usefulness.licensee/SpdxLicense.url|{}url[0]
+        final fun <get-url>(): kotlin/String // io.github.usefulness.licensee/SpdxLicense.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.usefulness.licensee/SpdxLicense.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.usefulness.licensee/SpdxLicense.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.usefulness.licensee/SpdxLicense.toString|toString(){}[0]
+}
+
+final class io.github.usefulness.licensee/UnknownLicense { // io.github.usefulness.licensee/UnknownLicense|null[0]
+    constructor <init>(kotlin/String?, kotlin/String?) // io.github.usefulness.licensee/UnknownLicense.<init>|<init>(kotlin.String?;kotlin.String?){}[0]
+
+    final val name // io.github.usefulness.licensee/UnknownLicense.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // io.github.usefulness.licensee/UnknownLicense.name.<get-name>|<get-name>(){}[0]
+    final val url // io.github.usefulness.licensee/UnknownLicense.url|{}url[0]
+        final fun <get-url>(): kotlin/String? // io.github.usefulness.licensee/UnknownLicense.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.usefulness.licensee/UnknownLicense.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.usefulness.licensee/UnknownLicense.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.usefulness.licensee/UnknownLicense.toString|toString(){}[0]
+}
